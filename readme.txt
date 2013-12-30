@@ -6,7 +6,7 @@ Requires at least: 3.8
 Tested up to: 3.8
 Stable tag: 1.0.0
 
-Lets you setup a simple series of posts using taxonomies. Posts within a series will show an information box above the content automatically with links to other posts in the series and a description.
+Setup a series of posts using a new taxonomy. Posts within a series will show an info box above the content with links to other posts in the series.
 
 == Description ==
 
