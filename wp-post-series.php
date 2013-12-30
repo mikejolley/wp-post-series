@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WP Post Series
  * Plugin URI: https://github.com/mikejolley/wp-post-series
- * Description: Lets you setup a simple post series using taxonomies. Posts within a series will show an info box beneath the content automatically.
+ * Description: Lets you setup a simple series of posts using taxonomies. Posts within a series will show an information box above the content automatically with links to other posts in the series and a description.
  * Version: 1.0.0
  * Author: Mike Jolley
  * Author URI: http://mikejolley.com
