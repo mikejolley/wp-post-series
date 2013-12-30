@@ -1,0 +1,23 @@
+.wp-post-series-box {
+	border: 1px solid #000;
+	padding: 0 1em;
+	margin: 1em 0;
+}
+.wp-post-series-name {
+	font-weight: bold;
+	margin: 1em 0;
+}
+.wp-post-series-description {
+	margin: 1em 0;
+}
+.wp-post-series-nav {
+	display:none;
+	margin: 1em 0;
+}
+.wp-post-series-nav ol {
+	list-style-type: decimal;
+	margin:0;
+}
+.wp-post-series-show-nav {
+	float: right;
+}
