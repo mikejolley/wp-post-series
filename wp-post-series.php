@@ -77,7 +77,7 @@ class WP_Post_Series {
             	),
 	            'show_ui' 				=> true,
 	            'query_var' 			=> true,
-	            'rewrite' 				=> false,
+	            'rewrite' 				=> apply_filters( 'wp_post_series_enable_archive', false ),
 	            'meta_box_cb'           => array( $this, 'post_series_meta_box' )
 	        )
 	    );

@@ -4,7 +4,14 @@
 		<?php if ( is_single() && sizeof( $posts_in_series ) > 1 ) : ?>
 			<a href="#" class="wp-post-series-show-nav"><?php _e( 'More posts &darr;', 'wp_post_series' ); ?></a>
 		<?php endif; ?>
-		<?php printf( __( 'This is post #%d of %d in the series <em>&ldquo;%s&rdquo;</em>', 'wp_post_series' ), $post_in_series, sizeof( $posts_in_series ), esc_html( $series->name ) ); ?>
+		<?php 
+			if ( apply_filters( 'wp_post_series_enable_archive', false ) ) {
+				$series_name = '<a href="' . get_term_link( $series->term_id, 'post_series' ) . '">' . esc_html( $series->name ) . '</a>';
+			} else {
+				$series_name = esc_html( $series->name );
+			}
+			printf( __( 'This is post #%d of %d in the series <em>&ldquo;%s&rdquo;</em>', 'wp_post_series' ), $post_in_series, sizeof( $posts_in_series ), $series_name ); 
+		?>
 	</p>
 
 	<?php if ( is_single() && sizeof( $posts_in_series ) > 1 ) : ?>
