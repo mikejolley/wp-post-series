@@ -1,9 +1,6 @@
-<aside class="wp-post-series-box">
+<aside class="wp-post-series-box <?php if ( is_single() && sizeof( $posts_in_series ) > 1 ) : ?>expandable<?php endif; ?>">
 	
 	<p class="wp-post-series-name">
-		<?php if ( is_single() && sizeof( $posts_in_series ) > 1 ) : ?>
-			<a href="#" class="wp-post-series-show-nav"><?php _e( 'More posts &darr;', 'wp_post_series' ); ?></a>
-		<?php endif; ?>
 		<?php 
 			if ( apply_filters( 'wp_post_series_enable_archive', false ) ) {
 				$series_name = '<a href="' . get_term_link( $series->term_id, 'post_series' ) . '">' . esc_html( $series->name ) . '</a>';
@@ -15,6 +12,7 @@
 	</p>
 
 	<?php if ( is_single() && sizeof( $posts_in_series ) > 1 ) : ?>
+
 		<nav class="wp-post-series-nav">
 			<ol>
 				<?php foreach ( $posts_in_series as $key => $post_id ) : ?>
@@ -26,9 +24,10 @@
 				<?php endforeach; ?>
 			</ol>
 		</nav>
-	<?php endif; ?>
 
-	<?php if ( $description ) : ?>
-		<div class="wp-post-series-description"><?php echo wpautop( wptexturize( $description ) ); ?></div>
+		<?php if ( $description ) : ?>
+			<div class="wp-post-series-description"><?php echo wpautop( wptexturize( $description ) ); ?></div>
+		<?php endif; ?>
+
 	<?php endif; ?>
 </aside>

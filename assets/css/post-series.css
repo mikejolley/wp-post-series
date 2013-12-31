@@ -3,11 +3,17 @@
 	padding: 0 1em;
 	margin: 1em 0;
 }
+.wp-post-series-box.expandable {
+	cursor: pointer;
+}
 .wp-post-series-name {
 	font-weight: bold;
 	margin: 1em 0;
 }
 .wp-post-series-description {
+	margin: 0;
+}
+.wp-post-series-description p {
 	margin: 1em 0;
 }
 .wp-post-series-nav {
@@ -18,6 +24,7 @@
 	list-style-type: decimal;
 	margin:0;
 }
-.wp-post-series-show-nav {
+.wp-post-series-show-nav, .wp-post-series-show-description {
 	float: right;
+	padding: 0 1em 0 0;
 }
