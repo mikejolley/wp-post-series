@@ -1,4 +1,4 @@
-<aside class="wp-post-series-box">
+<aside class="<?php echo $post_series_box_class; ?>">
 	
 	<p class="wp-post-series-name">
 		<?php if ( is_single() && sizeof( $posts_in_series ) > 1 ) : ?>
