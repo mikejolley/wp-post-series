@@ -3,7 +3,7 @@ Contributors: mikejolley
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=mike.jolley@me.com&currency_code=&amount=&return=&item_name=Buy+me+a+coffee+for+WP+Post+Series
 Tags: series, posts, post series, post
 Requires at least: 3.8
-Tested up to: 3.8
+Tested up to: 4.0
 Stable tag: 1.0.0
 
 Setup a series of posts using a new taxonomy. Posts within a series will show an info box above the content with links to other posts in the series.

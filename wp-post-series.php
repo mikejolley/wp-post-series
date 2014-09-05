@@ -7,7 +7,7 @@
  * Author: Mike Jolley
  * Author URI: http://mikejolley.com
  * Requires at least: 3.8
- * Tested up to: 3.8
+ * Tested up to: 4.0
  *
  * Text Domain: wp_post_series
  * Domain Path: /languages/
@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) )
 	exit;
 
 class WP_Post_Series {
-		
+
 	/**
 	 * Constructor for the class
 	 */
@@ -120,10 +120,10 @@ class WP_Post_Series {
 	 * @param  array $post Post being edited
 	 */
 	public function post_series_meta_box( $post ) {
-		
+
 		// Get the current series for the post if set
 		$current_series = $this->get_post_series_id( $post->ID );
-		
+
 		// Get list of all series and the taxonomy
 		$tax            = get_taxonomy( 'post_series' );
 		$all_series     = get_terms( 'post_series', array( 'hide_empty' => false, 'orderby' => 'name' ) );
@@ -193,7 +193,7 @@ class WP_Post_Series {
 
 	    $current_series = isset( $_REQUEST['post_series'] ) ? sanitize_text_field( $_REQUEST['post_series'] ) : '';
 	    $all_series     = get_terms( 'post_series', array( 'hide_empty' => true, 'orderby' => 'name' ) );
-	    
+
 	    if ( empty( $all_series ) ) {
 	    	return;
 	    }
@@ -229,7 +229,7 @@ class WP_Post_Series {
 
 		// Create series info box
 		$term_description = term_description( $series->term_id, 'post_series' );
-		$posts_in_series  = get_posts( array( 
+		$posts_in_series  = get_posts( array(
 			'post_type'      => 'post',
 			'posts_per_page' => -1,
 			'fields'         => 'ids',
@@ -256,8 +256,8 @@ class WP_Post_Series {
 
 		ob_start();
 
-		$this->get_template( 'series-box.php', array( 
-			'series'          => $series, 
+		$this->get_template( 'series-box.php', array(
+			'series'          => $series,
 			'description'     => $term_description,
 			'posts_in_series' => $posts_in_series,
 			'post_in_series'  => $post_in_series
