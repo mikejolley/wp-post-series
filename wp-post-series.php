@@ -129,7 +129,7 @@ class WP_Post_Series {
 		$all_series     = get_terms( 'post_series', array( 'hide_empty' => false, 'orderby' => 'name' ) );
 
 		?>
-		<div id="taxonomy-<?php echo $taxonomy; ?>" class="categorydiv">
+		<div id="taxonomy-<?php echo $tax->name; ?>" class="categorydiv">
 			<label class="screen-reader-text" for="new_post_series_parent">
 				<?php echo $tax->labels->parent_item_colon; ?>
 			</label>
