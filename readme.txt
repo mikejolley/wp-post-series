@@ -26,7 +26,7 @@ You can contribute code and localizations to this plugin via GitHub: [https://gi
 
 = Support =
 
-Use the WordPress.org forums for community support - I cannot offer support directly for free. If you spot a bug, you can of course log it on [Github](https://github.com/mikejolley/wp-job-manager) instead where I can act upon it more efficiently.
+Use the WordPress.org forums for community support - I cannot offer support directly for free. If you spot a bug, you can of course log it on [Github](https://github.com/mikejolley/wp-post-series) instead where I can act upon it more efficiently.
 
 If you want help with a customisation, hire a developer!
 
