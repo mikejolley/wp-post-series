@@ -24,7 +24,9 @@
 				<?php endforeach; ?>
 			</ol>
 		</nav>
+	<?php endif; ?>
 
+	<?php if ( is_single() ) : ?>
 		<?php if ( $description ) : ?>
 			<div class="wp-post-series-description"><?php echo wpautop( wptexturize( $description ) ); ?></div>
 		<?php endif; ?>
