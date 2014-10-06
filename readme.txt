@@ -58,6 +58,7 @@ The manual installation method involves downloading the plugin and uploading it 
 * Show description of series even if the number of posts == 1.
 * Fix link to repo in readme.
 * Added swedish translation.
+* Tweaked styles to work with default themes.
 
 = 1.0.0 =
 * First stable release.
