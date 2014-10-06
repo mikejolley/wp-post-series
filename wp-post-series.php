@@ -254,13 +254,21 @@ class WP_Post_Series {
 			$post_in_series ++;
 		}
 
+		// add the series slug to the post series box class
+		$post_series_box_class = 'wp-post-series-box series-'. $series->slug;
+
+		if ( is_single() && sizeof( $posts_in_series ) > 1 ) {
+			$post_series_box_class .= ' expandable';
+		}
+
 		ob_start();
 
 		$this->get_template( 'series-box.php', array(
-			'series'          => $series,
-			'description'     => $term_description,
-			'posts_in_series' => $posts_in_series,
-			'post_in_series'  => $post_in_series
+			'series'				=> $series,
+			'description'			=> $term_description,
+			'posts_in_series'		=> $posts_in_series,
+			'post_in_series'		=> $post_in_series,
+			'post_series_box_class'	=> $post_series_box_class
 		) );
 
 		$info_box = ob_get_clean();
