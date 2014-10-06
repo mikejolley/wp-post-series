@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=mike.jol
 Tags: series, posts, post series, post
 Requires at least: 3.8
 Tested up to: 4.0
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 
 Setup a series of posts using a new taxonomy. Posts within a series will show an info box above the content with links to other posts in the series.
 
@@ -51,6 +51,13 @@ The manual installation method involves downloading the plugin and uploading it 
 1. The series information box
 
 == Changelog ==
+
+= 1.0.1 =
+* Added CSS Class for Series.
+* Fix taxonomy class name.
+* Show description of series even if the number of posts == 1.
+* Fix link to repo in readme.
+* Added swedish translation.
 
 = 1.0.0 =
 * First stable release.
