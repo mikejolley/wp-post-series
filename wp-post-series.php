@@ -9,7 +9,7 @@
  * Requires at least: 3.8
  * Tested up to: 4.0
  *
- * Text Domain: wp_post_series
+ * Text Domain: wp-post-series
  * Domain Path: /languages/
  */
 if ( ! defined( 'ABSPATH' ) )
@@ -46,7 +46,7 @@ class WP_Post_Series {
 	 * Load the plugin textdomain for localistion
 	 */
 	public function load_textdomain() {
-		load_plugin_textdomain( 'wp_post_series', false, plugin_basename( dirname( __FILE__ ) ) . "/languages" );
+		load_plugin_textdomain( 'wp-post-series', false, plugin_basename( dirname( __FILE__ ) ) . "/languages" );
 	}
 
 	/**
@@ -54,8 +54,8 @@ class WP_Post_Series {
 	 */
 	public function register_taxonomies() {
 
-		$plural           = __( 'Post series', 'wp_post_series' );
-		$singular         = __( 'Post series', 'wp_post_series' );
+		$plural           = __( 'Post series', 'wp-post-series' );
+		$singular         = __( 'Post series', 'wp-post-series' );
 
 		register_taxonomy( "post_series",
 	        array( "post" ),
@@ -63,17 +63,17 @@ class WP_Post_Series {
 	            'hierarchical' 			=> false,
 	            'label' 				=> $plural,
 	            'labels' => array(
-	            	'menu_name'         => __( 'Series', 'wp_post_series' ),
+	            	'menu_name'         => __( 'Series', 'wp-post-series' ),
                     'name' 				=> $plural,
                     'singular_name' 	=> $singular,
-                    'search_items' 		=> sprintf( __( 'Search %s', 'wp_post_series' ), $plural ),
-                    'all_items' 		=> sprintf( __( 'All %s', 'wp_post_series' ), $plural ),
-                    'parent_item' 		=> sprintf( __( '%s', 'wp_post_series' ), $singular ),
-                    'parent_item_colon' => sprintf( __( '%s:', 'wp_post_series' ), $singular ),
-                    'edit_item' 		=> sprintf( __( 'Edit %s', 'wp_post_series' ), $singular ),
-                    'update_item' 		=> sprintf( __( 'Update %s', 'wp_post_series' ), $singular ),
-                    'add_new_item' 		=> sprintf( __( 'Add New %s', 'wp_post_series' ), $singular ),
-                    'new_item_name' 	=> sprintf( __( 'New %s Name', 'wp_post_series' ),  $singular )
+                    'search_items' 		=> sprintf( __( 'Search %s', 'wp-post-series' ), $plural ),
+                    'all_items' 		=> sprintf( __( 'All %s', 'wp-post-series' ), $plural ),
+                    'parent_item' 		=> sprintf( __( '%s', 'wp-post-series' ), $singular ),
+                    'parent_item_colon' => sprintf( __( '%s:', 'wp-post-series' ), $singular ),
+                    'edit_item' 		=> sprintf( __( 'Edit %s', 'wp-post-series' ), $singular ),
+                    'update_item' 		=> sprintf( __( 'Update %s', 'wp-post-series' ), $singular ),
+                    'add_new_item' 		=> sprintf( __( 'Add New %s', 'wp-post-series' ), $singular ),
+                    'new_item_name' 	=> sprintf( __( 'New %s Name', 'wp-post-series' ),  $singular )
             	),
 	            'show_ui' 				=> true,
 	            'query_var' 			=> true,
@@ -149,14 +149,15 @@ class WP_Post_Series {
 	 * @return array new columns
 	 */
 	public function columns( $columns ) {
-		if ( ! is_array( $columns ) )
+		if ( ! is_array( $columns ) ) {
 			$new_columns = array();
+		}
 
 		foreach ( $columns as $key => $column ) {
 			$new_columns[ $key ] = $column;
 
 			if ( 'categories' == $key ) {
-				$new_columns["post_series"] = __( "Series", "wp_post_series" );
+				$new_columns['post_series'] = __( 'Series', 'wp-post-series' );
 			}
 		}
 
@@ -176,7 +177,7 @@ class WP_Post_Series {
 			if ( $current_series ) {
 				echo '<a href="' . esc_url( admin_url( 'edit.php?post_series=' . $current_series->slug ) ) . '">' . esc_html( $current_series->name ) . '</a>';
 			} else {
-				_e( 'N/A', 'wp_post_series' );
+				_e( 'N/A', 'wp-post-series' );
 			}
 		}
 	}
@@ -199,7 +200,7 @@ class WP_Post_Series {
 	    }
 	    ?>
 	    <select name="post_series">
-			<option value=""><?php _e( 'Show all series', 'wp_post_series' ) ?></option>
+			<option value=""><?php _e( 'Show all series', 'wp-post-series' ) ?></option>
 			<?php foreach ( $all_series as $series ) : ?>
 				<option value="<?php echo esc_attr( $series->slug ); ?>" <?php selected( $current_series, $series->slug ); ?>><?php echo esc_html( $series->name ); ?></option>
 			<?php endforeach; ?>
@@ -315,10 +316,12 @@ class WP_Post_Series {
 	 * @return string
 	 */
 	public function locate_template( $template_name, $template_path = '', $default_path = '' ) {
-		if ( ! $template_path )
+		if ( ! $template_path ) {
 			$template_path = 'wp_post_series';
-		if ( ! $default_path )
+		}
+		if ( ! $default_path ) {
 			$default_path  = WP_POST_SERIES_PLUGIN_DIR . '/templates/';
+		}
 
 		// Look within passed path within the theme - this is priority
 		$template = locate_template(

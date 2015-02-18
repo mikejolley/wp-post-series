@@ -6,7 +6,7 @@
 			} else {
 				$series_name = esc_html( $series->name );
 			}
-			printf( __( 'This is post #%d of %d in the series <em>&ldquo;%s&rdquo;</em>', 'wp_post_series' ), $post_in_series, sizeof( $posts_in_series ), $series_name );
+			printf( __( 'This is post #%d of %d in the series <em>&ldquo;%s&rdquo;</em>', 'wp-post-series' ), $post_in_series, sizeof( $posts_in_series ), $series_name );
 		?>
 	</p>
 
