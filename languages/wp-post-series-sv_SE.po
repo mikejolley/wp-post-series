@@ -1,78 +1,115 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Post Series 1.0.0\n"
+"Project-Id-Version: WP Post Series v1.0.1\n"
+"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-02-24 11:13+0100\n"
-"PO-Revision-Date: 2014-02-24 11:13+0100\n"
+"PO-Revision-Date: 2015-02-18 20:04:03+0000\n"
 "Last-Translator: Andréas Lundgren <adevade@gmail.com>\n"
 "Language-Team: \n"
-"Language: sv_SE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Poedit 1.6.4\n"
+"X-Poedit-Language: \n"
+"X-Poedit-Country: \n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
 "X-Poedit-Basepath: .\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-KeywordsList: __;_e;_x\n"
+"X-Poedit-Bookmarks: \n"
 "X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPath-1: ..\n"
+"X-Textdomain-Support: yes"
 
-#: ../templates/series-box.php:10
+#: templates/series-box.php:9
 #, php-format
 msgid "This is post #%d of %d in the series <em>&ldquo;%s&rdquo;</em>"
 msgstr "Det här är inlägg #%d av %d i samlingen <em>&ldquo;%s&rdquo;</em>"
 
-#: ../wp-post-series.php:57 ../wp-post-series.php:58
+#: wp-post-series.php:57
+#: wp-post-series.php:58
 msgid "Post series"
 msgstr "Inläggssamlingar"
 
-#: ../wp-post-series.php:66 ../wp-post-series.php:159
+#: wp-post-series.php:66
+#: wp-post-series.php:160
 msgid "Series"
 msgstr "Samlingar"
 
-#: ../wp-post-series.php:69
+#: wp-post-series.php:69
 #, php-format
 msgid "Search %s"
 msgstr "Sök bland %s"
 
-#: ../wp-post-series.php:70
+#: wp-post-series.php:70
 #, php-format
 msgid "All %s"
 msgstr "Alla %s"
 
-#: ../wp-post-series.php:71
+#: wp-post-series.php:71
 #, php-format
 msgid "%s"
 msgstr "%s"
 
-#: ../wp-post-series.php:72
+#: wp-post-series.php:72
 #, php-format
 msgid "%s:"
 msgstr "%s:"
 
-#: ../wp-post-series.php:73
+#: wp-post-series.php:73
 #, php-format
 msgid "Edit %s"
 msgstr "Redigera %s"
 
-#: ../wp-post-series.php:74
+#: wp-post-series.php:74
 #, php-format
 msgid "Update %s"
 msgstr "Uppdatera %s"
 
-#: ../wp-post-series.php:75
+#: wp-post-series.php:75
 #, php-format
 msgid "Add New %s"
 msgstr "Skapa ny %s"
 
-#: ../wp-post-series.php:76
+#: wp-post-series.php:76
 #, php-format
 msgid "New %s Name"
 msgstr "Nytt namn för %s"
 
-#: ../wp-post-series.php:179
+#: wp-post-series.php:180
 msgid "N/A"
 msgstr "N/A"
 
-#: ../wp-post-series.php:202
+#: wp-post-series.php:203
 msgid "Show all series"
 msgstr "Visa alla samlingar"
+
+#. translators: plugin header field 'Name'
+#: wp-post-series.php:0
+msgid "WP Post Series"
+msgstr ""
+
+#. translators: plugin header field 'PluginURI'
+#: wp-post-series.php:0
+msgid "https://github.com/mikejolley/wp-post-series"
+msgstr ""
+
+#. translators: plugin header field 'Description'
+#: wp-post-series.php:0
+msgid "Lets you setup a simple series of posts using taxonomies. Posts within a series will show an information box above the content automatically with links to other posts in the series and a description."
+msgstr ""
+
+#. translators: plugin header field 'Author'
+#: wp-post-series.php:0
+msgid "Mike Jolley"
+msgstr ""
+
+#. translators: plugin header field 'AuthorURI'
+#: wp-post-series.php:0
+msgid "http://mikejolley.com"
+msgstr ""
+
+#. translators: plugin header field 'Version'
+#: wp-post-series.php:0
+msgid "1.0.1"
+msgstr ""
+
