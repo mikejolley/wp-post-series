@@ -6,7 +6,7 @@
 			} else {
 				$series_name = esc_html( $series->name );
 			}
-			printf( __( 'This is post #%d of %d in the series <em>&ldquo;%s&rdquo;</em>', 'wp-post-series' ), $post_in_series, sizeof( $posts_in_series ), $series_name );
+			printf( __( 'This is post %d of %d in the series <em>&ldquo;%s&rdquo;</em>', 'wp-post-series' ), $post_in_series, sizeof( $posts_in_series ), $series_name );
 		?>
 	</p>
 
@@ -16,9 +16,9 @@
 			<ol>
 				<?php foreach ( $posts_in_series as $key => $post_id ) : ?>
 					<li>
-						<?php if ( ! is_single( $post_id ) ) echo '<a href="' . get_permalink( $post_id ) . '">'; ?>
-						<?php echo get_the_title( $post_id ); ?>
-						<?php if ( ! is_single( $post_id ) ) echo '</a>'; ?>
+						<?php if ( ! is_single( $post_id ) && 'publish' === get_post_status( $post_id ) ) echo '<a href="' . get_permalink( $post_id ) . '">'; ?>
+						<?php echo 'publish' === get_post_status( $post_id ) ? get_the_title( $post_id ) : sprintf( __( '%s &ndash; <em>Scheduled for %s</em>', 'wp-post-series' ), get_the_title( $post_id ), get_post_time( get_option( 'date_format' ), false, $post_id ) ); ?>
+						<?php if ( ! is_single( $post_id ) && 'publish' === get_post_status( $post_id ) ) echo '</a>'; ?>
 					</li>
 				<?php endforeach; ?>
 			</ol>
