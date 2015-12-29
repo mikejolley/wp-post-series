@@ -17,7 +17,7 @@
 				<?php foreach ( $posts_in_series as $key => $post_id ) : ?>
 					<li>
 						<?php if ( ! is_single( $post_id ) && 'publish' === get_post_status( $post_id ) ) echo '<a href="' . get_permalink( $post_id ) . '">'; ?>
-						<?php echo 'publish' === get_post_status( $post_id ) ? get_the_title( $post_id ) : sprintf( __( '%s &ndash; <em>Scheduled for %s</em>', 'wp-post-series' ), get_the_title( $post_id ), get_post_time( get_option( 'date_format' ), false, $post_id ) ); ?>
+						<?php echo 'publish' === get_post_status( $post_id ) ? get_the_title( $post_id ) : sprintf( __( '%s &ndash; <em>Scheduled for %s</em>', 'wp-post-series' ), get_the_title( $post_id ), get_post_time( get_option( 'date_format' ), false, $post_id, true ) ); ?>
 						<?php if ( ! is_single( $post_id ) && 'publish' === get_post_status( $post_id ) ) echo '</a>'; ?>
 					</li>
 				<?php endforeach; ?>
