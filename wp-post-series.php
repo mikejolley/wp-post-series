@@ -3,7 +3,7 @@
  * Plugin Name: WP Post Series
  * Plugin URI: https://github.com/mikejolley/wp-post-series
  * Description: Lets you setup a simple series of posts using taxonomies. Posts within a series will show an information box above the content automatically with links to other posts in the series and a description.
- * Version: 1.1.0
+ * Version: 1.2.0
  * Author: Mike Jolley
  * Author URI: http://mikejolley.com
  * Requires at least: 3.8
@@ -22,7 +22,7 @@ class WP_Post_Series {
 	 */
 	public function __construct() {
 		// Define constants
-		define( 'WP_POST_SERIES_VERSION', '1.1.0' );
+		define( 'WP_POST_SERIES_VERSION', '1.2.0' );
 		define( 'WP_POST_SERIES_PLUGIN_DIR', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 		define( 'WP_POST_SERIES_PLUGIN_URL', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) );
 
@@ -348,8 +348,12 @@ class WP_Post_Series {
 	 * @return void
 	 */
 	public function frontend_scripts() {
-		wp_register_script( 'wp-post-series', WP_POST_SERIES_PLUGIN_URL . '/assets/js/post-series.js', array( 'jquery' ), WP_POST_SERIES_VERSION, true );
-		wp_enqueue_style( 'wp-post-series-frontend', WP_POST_SERIES_PLUGIN_URL . '/assets/css/post-series.css' );
+		$disable_frontend_scripts = apply_filters( 'wp_post_series_disable_frontend_scripts', false );
+
+		if ( ! $disable_frontend_scripts ) {
+			wp_register_script( 'wp-post-series', WP_POST_SERIES_PLUGIN_URL . '/assets/js/post-series.js', array( 'jquery' ), WP_POST_SERIES_VERSION, true );
+			wp_enqueue_style( 'wp-post-series-frontend', WP_POST_SERIES_PLUGIN_URL . '/assets/css/post-series.css' );
+		}
 	}
 }
 
