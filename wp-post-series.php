@@ -7,7 +7,7 @@
  * Author: Mike Jolley
  * Author URI: http://mikejolley.com
  * Requires at least: 3.8
- * Tested up to: 4.4
+ * Tested up to: 4.5
  *
  * Text Domain: wp-post-series
  * Domain Path: /languages/

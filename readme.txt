@@ -3,7 +3,7 @@ Contributors: mikejolley
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=mike.jolley@me.com&currency_code=&amount=&return=&item_name=Buy+me+a+coffee+for+WP+Post+Series
 Tags: series, posts, post series, post
 Requires at least: 3.8
-Tested up to: 4.4
+Tested up to: 4.5
 Stable tag: 1.1.0
 
 Setup a series of posts using a new taxonomy. Posts within a series will show an info box above the content with links to other posts in the series.
@@ -53,7 +53,7 @@ The manual installation method involves downloading the plugin and uploading it 
 == Changelog ==
 
 = 1.1.0 =
-* Scheduled post handling! Scheduled posts will contribute to your series count, and the title and scheduled date will be listed along with your other series items. 
+* Scheduled post handling! Scheduled posts will contribute to your series count, and the title and scheduled date will be listed along with your other series items.
 * Removed bundled language files.
 * Added POT file.
 
