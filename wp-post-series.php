@@ -211,7 +211,7 @@ class WP_Post_Series {
 	/**
 	 * Append/Prepend the series info box to the post content
 	 * @param  string $content Post content
-	 * @return string Ammended post content
+	 * @return string Amended post content
 	 */
 	public function add_series_to_content( $content ) {
 		global $post;
