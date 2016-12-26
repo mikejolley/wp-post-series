@@ -1,7 +1,7 @@
 .wp-post-series-box, .entry-content .wp-post-series-box  {
-	border: 1px solid #000;
 	padding: 0 1em;
 	margin: 1em 0;
+	background: #DCDCDC;
 }
 .wp-post-series-box.expandable, .entry-content .wp-post-series-box.expandable {
 	cursor: pointer;
