@@ -13,7 +13,7 @@
 	<?php if ( is_single() && sizeof( $posts_in_series ) > 1 ) : ?>
 
 		<nav class="wp-post-series-nav">
-			<ol>
+			<ul>
 				<?php foreach ( $posts_in_series as $key => $post_id ) : ?>
 					<li>
 						<?php if ( ! is_single( $post_id ) && 'publish' === get_post_status( $post_id ) ) echo '<a href="' . get_permalink( $post_id ) . '">'; ?>
@@ -21,7 +21,7 @@
 						<?php if ( ! is_single( $post_id ) && 'publish' === get_post_status( $post_id ) ) echo '</a>'; ?>
 					</li>
 				<?php endforeach; ?>
-			</ol>
+			</ul>
 		</nav>
 	<?php endif; ?>
 
