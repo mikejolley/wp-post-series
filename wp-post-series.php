@@ -216,7 +216,7 @@ class WP_Post_Series {
 	public function add_series_to_content( $content ) {
 		global $post;
 
-		if ( 'post' !== $post->post_type || ! is_main_query() ) {
+		if ( ! is_main_query() || 'post' !== $post->post_type ) {
 			return $content;
 		}
 
