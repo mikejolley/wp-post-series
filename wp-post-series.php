@@ -348,8 +348,11 @@ class WP_Post_Series {
 	 * @return void
 	 */
 	public function frontend_scripts() {
-		wp_register_script( 'wp-post-series', WP_POST_SERIES_PLUGIN_URL . '/assets/js/post-series.js', array( 'jquery' ), WP_POST_SERIES_VERSION, true );
-		wp_enqueue_style( 'wp-post-series-frontend', WP_POST_SERIES_PLUGIN_URL . '/assets/css/post-series.css' );
+		if ( is_singular('post') || is_home() ) {
+		// enqueue specific scripts for blog homepage and single posts of post type post
+			  wp_register_script( 'wp-post-series', WP_POST_SERIES_PLUGIN_URL . '/assets/js/post-series.js', array( 'jquery' ), WP_POST_SERIES_VERSION, true );
+			  wp_enqueue_style( 'wp-post-series-frontend', WP_POST_SERIES_PLUGIN_URL . '/assets/css/post-series.css' );
+		}
 	}
 }
 
