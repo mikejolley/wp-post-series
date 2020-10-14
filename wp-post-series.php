@@ -12,8 +12,9 @@
  * Text Domain: wp-post-series
  * Domain Path: /languages/
  */
-if ( ! defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
+}
 
 class WP_Post_Series {
 
@@ -35,10 +36,10 @@ class WP_Post_Series {
 		add_action( 'manage_post_posts_custom_column', array( $this, 'custom_columns' ), 2 );
 
 		// Admin filtering
-		add_action( "restrict_manage_posts", array( $this, "posts_in_series" ) );
+		add_action( 'restrict_manage_posts', array( $this, 'posts_in_series' ) );
 
 		// Frontend display
-		add_filter( 'the_content', array( $this, "add_series_to_content" ) );
+		add_filter( 'the_content', array( $this, 'add_series_to_content' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts' ) );
 	}
 
@@ -46,7 +47,7 @@ class WP_Post_Series {
 	 * Load the plugin textdomain for localistion
 	 */
 	public function load_textdomain() {
-		load_plugin_textdomain( 'wp-post-series', false, plugin_basename( dirname( __FILE__ ) ) . "/languages" );
+		load_plugin_textdomain( 'wp-post-series', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
 	}
 
 	/**
@@ -54,37 +55,40 @@ class WP_Post_Series {
 	 */
 	public function register_taxonomies() {
 
-		$plural           = __( 'Post series', 'wp-post-series' );
-		$singular         = __( 'Post series', 'wp-post-series' );
+		$plural   = __( 'Post series', 'wp-post-series' );
+		$singular = __( 'Post series', 'wp-post-series' );
 
-		register_taxonomy( "post_series",
-	        array( "post" ),
-	        array(
-	            'hierarchical' 			=> false,
-	            'label' 				=> $plural,
-	            'labels' => array(
-	            	'menu_name'         => __( 'Series', 'wp-post-series' ),
-                    'name' 				=> $plural,
-                    'singular_name' 	=> $singular,
-                    'search_items' 		=> sprintf( __( 'Search %s', 'wp-post-series' ), $plural ),
-                    'all_items' 		=> sprintf( __( 'All %s', 'wp-post-series' ), $plural ),
-                    'parent_item' 		=> sprintf( __( '%s', 'wp-post-series' ), $singular ),
-                    'parent_item_colon' => sprintf( __( '%s:', 'wp-post-series' ), $singular ),
-                    'edit_item' 		=> sprintf( __( 'Edit %s', 'wp-post-series' ), $singular ),
-                    'update_item' 		=> sprintf( __( 'Update %s', 'wp-post-series' ), $singular ),
-                    'add_new_item' 		=> sprintf( __( 'Add New %s', 'wp-post-series' ), $singular ),
-                    'new_item_name' 	=> sprintf( __( 'New %s Name', 'wp-post-series' ),  $singular )
-            	),
-	            'show_ui' 				=> true,
-	            'query_var' 			=> true,
-	            'rewrite' 				=> apply_filters( 'wp_post_series_enable_archive', false ),
-	            'meta_box_cb'           => array( $this, 'post_series_meta_box' )
-	        )
-	    );
+		register_taxonomy(
+			'post_series',
+			array( 'post' ),
+			array(
+				'hierarchical' => false,
+				'label'        => $plural,
+				'labels'       => array(
+					'menu_name'         => __( 'Series', 'wp-post-series' ),
+					'name'              => $plural,
+					'singular_name'     => $singular,
+					'search_items'      => sprintf( __( 'Search %s', 'wp-post-series' ), $plural ),
+					'all_items'         => sprintf( __( 'All %s', 'wp-post-series' ), $plural ),
+					'parent_item'       => sprintf( __( '%s', 'wp-post-series' ), $singular ),
+					'parent_item_colon' => sprintf( __( '%s:', 'wp-post-series' ), $singular ),
+					'edit_item'         => sprintf( __( 'Edit %s', 'wp-post-series' ), $singular ),
+					'update_item'       => sprintf( __( 'Update %s', 'wp-post-series' ), $singular ),
+					'add_new_item'      => sprintf( __( 'Add New %s', 'wp-post-series' ), $singular ),
+					'new_item_name'     => sprintf( __( 'New %s Name', 'wp-post-series' ), $singular ),
+				),
+				'show_ui'      => true,
+				'show_in_rest' => true,
+				'query_var'    => true,
+				'rewrite'      => apply_filters( 'wp_post_series_enable_archive', false ),
+				'meta_box_cb'  => array( $this, 'post_series_meta_box' ),
+			)
+		);
 	}
 
 	/**
 	 * Get a post's series
+	 *
 	 * @param  int $post_id post ID
 	 * @return object the term object
 	 */
@@ -102,6 +106,7 @@ class WP_Post_Series {
 
 	/**
 	 * Get the ID of a post's series
+	 *
 	 * @param  int $post_id post ID
 	 * @return int series ID
 	 */
@@ -117,6 +122,7 @@ class WP_Post_Series {
 
 	/**
 	 * Output the list of post series and allow admin to assign to a post. Uses a select box.
+	 *
 	 * @param  array $post Post being edited
 	 */
 	public function post_series_meta_box( $post ) {
@@ -125,8 +131,14 @@ class WP_Post_Series {
 		$current_series = $this->get_post_series_id( $post->ID );
 
 		// Get list of all series and the taxonomy
-		$tax            = get_taxonomy( 'post_series' );
-		$all_series     = get_terms( 'post_series', array( 'hide_empty' => false, 'orderby' => 'name' ) );
+		$tax        = get_taxonomy( 'post_series' );
+		$all_series = get_terms(
+			'post_series',
+			array(
+				'hide_empty' => false,
+				'orderby'    => 'name',
+			)
+		);
 
 		?>
 		<div id="taxonomy-<?php echo $tax->name; ?>" class="categorydiv">
@@ -145,6 +157,7 @@ class WP_Post_Series {
 
 	/**
 	 * Output admin column headers
+	 *
 	 * @param  array $columns existing columns
 	 * @return array new columns
 	 */
@@ -166,6 +179,7 @@ class WP_Post_Series {
 
 	/**
 	 * Output admin column values
+	 *
 	 * @param  string $column key for the column
 	 */
 	public function custom_columns( $column ) {
@@ -188,19 +202,25 @@ class WP_Post_Series {
 	public function posts_in_series() {
 		global $typenow, $wp_query;
 
-	    if ( $typenow != 'post' ) {
-	    	return;
-	    }
+		if ( $typenow != 'post' ) {
+			return;
+		}
 
-	    $current_series = isset( $_REQUEST['post_series'] ) ? sanitize_text_field( $_REQUEST['post_series'] ) : '';
-	    $all_series     = get_terms( 'post_series', array( 'hide_empty' => true, 'orderby' => 'name' ) );
+		$current_series = isset( $_REQUEST['post_series'] ) ? sanitize_text_field( $_REQUEST['post_series'] ) : '';
+		$all_series     = get_terms(
+			'post_series',
+			array(
+				'hide_empty' => true,
+				'orderby'    => 'name',
+			)
+		);
 
-	    if ( empty( $all_series ) ) {
-	    	return;
-	    }
-	    ?>
-	    <select name="post_series">
-			<option value=""><?php _e( 'Show all series', 'wp-post-series' ) ?></option>
+		if ( empty( $all_series ) ) {
+			return;
+		}
+		?>
+		<select name="post_series">
+			<option value=""><?php _e( 'Show all series', 'wp-post-series' ); ?></option>
 			<?php foreach ( $all_series as $series ) : ?>
 				<option value="<?php echo esc_attr( $series->slug ); ?>" <?php selected( $current_series, $series->slug ); ?>><?php echo esc_html( $series->name ); ?></option>
 			<?php endforeach; ?>
@@ -210,6 +230,7 @@ class WP_Post_Series {
 
 	/**
 	 * Append/Prepend the series info box to the post content
+	 *
 	 * @param  string $content Post content
 	 * @return string Amended post content
 	 */
@@ -230,22 +251,24 @@ class WP_Post_Series {
 
 		// Create series info box
 		$term_description = term_description( $series->term_id, 'post_series' );
-		$posts_in_series  = get_posts( array(
-			'post_type'      => 'post',
-			'posts_per_page' => -1,
-			'fields'         => 'ids',
-			'no_found_rows'  => true,
-			'orderby'        => 'date',
-			'order'          => 'asc',
-			'post_status'    => array( 'publish', 'future' ),
-			'tax_query'      => array(
-				array(
-					'taxonomy' => 'post_series',
-					'field'    => 'slug',
-					'terms'    => $series->slug
-				)
+		$posts_in_series  = get_posts(
+			array(
+				'post_type'      => 'post',
+				'posts_per_page' => -1,
+				'fields'         => 'ids',
+				'no_found_rows'  => true,
+				'orderby'        => 'date',
+				'order'          => 'asc',
+				'post_status'    => array( 'publish', 'future' ),
+				'tax_query'      => array(
+					array(
+						'taxonomy' => 'post_series',
+						'field'    => 'slug',
+						'terms'    => $series->slug,
+					),
+				),
 			)
-		) );
+		);
 
 		$post_in_series = 1;
 
@@ -257,7 +280,7 @@ class WP_Post_Series {
 		}
 
 		// add the series slug to the post series box class
-		$post_series_box_class = 'wp-post-series-box series-'. $series->slug;
+		$post_series_box_class = 'wp-post-series-box series-' . $series->slug;
 
 		if ( is_single() && sizeof( $posts_in_series ) > 1 ) {
 			$post_series_box_class .= ' expandable';
@@ -265,13 +288,16 @@ class WP_Post_Series {
 
 		ob_start();
 
-		$this->get_template( 'series-box.php', array(
-			'series'				=> $series,
-			'description'			=> $term_description,
-			'posts_in_series'		=> $posts_in_series,
-			'post_in_series'		=> $post_in_series,
-			'post_series_box_class'	=> $post_series_box_class
-		) );
+		$this->get_template(
+			'series-box.php',
+			array(
+				'series'                => $series,
+				'description'           => $term_description,
+				'posts_in_series'       => $posts_in_series,
+				'post_in_series'        => $post_in_series,
+				'post_series_box_class' => $post_series_box_class,
+			)
+		);
 
 		$info_box = ob_get_clean();
 
@@ -290,8 +316,8 @@ class WP_Post_Series {
 	/**
 	 * Get and include template files.
 	 *
-	 * @param mixed $template_name
-	 * @param array $args (default: array())
+	 * @param mixed  $template_name
+	 * @param array  $args (default: array())
 	 * @param string $template_path (default: '')
 	 * @param string $default_path (default: '')
 	 */
@@ -299,7 +325,7 @@ class WP_Post_Series {
 		if ( $args && is_array( $args ) ) {
 			extract( $args );
 		}
-		include( $this->locate_template( $template_name, $template_path, $default_path ) );
+		include $this->locate_template( $template_name, $template_path, $default_path );
 	}
 
 	/**
@@ -307,11 +333,11 @@ class WP_Post_Series {
 	 *
 	 * This is the load order:
 	 *
-	 *		yourtheme		/	$template_path	/	$template_name
-	 *		yourtheme		/	$template_name
-	 *		$default_path	/	$template_name
+	 *      yourtheme       /   $template_path  /   $template_name
+	 *      yourtheme       /   $template_name
+	 *      $default_path   /   $template_name
 	 *
-	 * @param mixed $template_name
+	 * @param mixed  $template_name
 	 * @param string $template_path (default: '')
 	 * @param string $default_path (default: '')
 	 * @return string
@@ -321,14 +347,14 @@ class WP_Post_Series {
 			$template_path = 'wp_post_series';
 		}
 		if ( ! $default_path ) {
-			$default_path  = WP_POST_SERIES_PLUGIN_DIR . '/templates/';
+			$default_path = WP_POST_SERIES_PLUGIN_DIR . '/templates/';
 		}
 
 		// Look within passed path within the theme - this is priority
 		$template = locate_template(
 			array(
 				trailingslashit( $template_path ) . $template_name,
-				$template_name
+				$template_name,
 			)
 		);
 
