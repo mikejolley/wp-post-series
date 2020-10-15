@@ -10,12 +10,12 @@
  * @wordpress-plugin
  * Plugin Name:       WP Post Series
  * Plugin URI:        https://wordpress.org/plugins/wp-post-series/
- * Description:       Lets you setup a simple series of posts using taxonomies. Posts within a series will show an information box above the content automatically with links to other posts in the series and a description.
+ * Description:       Publish and link together a series of posts using a new "series" taxonomy. Automatically display links to other posts in a series above your content.
  * Version:           2.0.0
  * Author:            Mike Jolley
  * Author URI:        http://mikejolley.com
  * Requires at least: 5.0
- * Tested up to:      5.5
+ * Tested up to:      5.6
  * Requires PHP:      5.6
  * Text Domain:       wp-post-series
  * Domain Path:       /languages/

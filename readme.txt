@@ -1,12 +1,13 @@
 === WP Post Series ===
 Contributors: mikejolley
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=mike.jolley@me.com&currency_code=&amount=&return=&item_name=Buy+me+a+coffee+for+WP+Post+Series
-Tags: series, posts, post series, post
-Requires at least: 3.8
-Tested up to: 4.5
+Tags: series, post series, organize, course, book
+Requires at least: 5.0
+Tested up to: 5.6
+Requires PHP: 5.6
 Stable tag: 1.1.0
 
-Setup a series of posts using a new taxonomy. Posts within a series will show an info box above the content with links to other posts in the series.
+Publish and link together a series of posts using a new "series" taxonomy. Automatically display links to other posts in a series above your content.
 
 == Description ==
 
@@ -48,9 +49,17 @@ The manual installation method involves downloading the plugin and uploading it 
 
 == Screenshots ==
 
-1. The series information box
+1. Post Series Display 
+2. Post Series Taxonomy Screen 
+3. Post Series Selection within the editor
 
 == Changelog ==
+
+= 2.0.0 =
+* Refactor - Rewritten majority of plugin using more up to date standards and namespaces.
+* Refactor - Improved template markup and default styling.
+* Refactor - Content toggle no longer relies om jQuery.
+* Fix - Made series taxonomy visible in the Gutenberg editor.
 
 = 1.1.0 =
 * Scheduled post handling! Scheduled posts will contribute to your series count, and the title and scheduled date will be listed along with your other series items.
