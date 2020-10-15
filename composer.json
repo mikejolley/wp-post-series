@@ -1,0 +1,36 @@
+{
+	"name": "mikejolley/wp-post-series",
+	"description": "Lets you setup a simple series of posts using taxonomies. Posts within a series will show an information box above the content automatically with links to other posts in the series and a description.",
+	"homepage": "https://wordpress.org/plugins/wp-post-series/",
+	"type": "wordpress-plugin",
+	"license": "GPL-3.0-or-later",
+	"prefer-stable": true,
+	"minimum-stability": "dev",
+	"require": {
+		"composer/installers": "1.7.0"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "6.5.14",
+		"wp-coding-standards/wpcs": "*",
+		"squizlabs/php_codesniffer": "^3.5"
+	},
+	"scripts": {
+		"phpcs": [
+			"phpcs --extensions=php -s -p"
+		],
+		"phpcbf": [
+			"phpcbf -p"
+		]
+	},
+	"autoload": {
+		"psr-4": {
+			"MJ\\PostSeries\\": "src"
+		}
+	},
+	"extra": {
+		"scripts-description": {
+			"phpcs": "Analyze code against the WordPress coding standards with PHP_CodeSniffer",
+			"phpcbf": "Fix coding standards warnings/errors automatically with PHP Code Beautifier"
+		}
+	}
+}

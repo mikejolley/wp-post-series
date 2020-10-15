@@ -1,0 +1,48 @@
+{
+	"name": "wp-post-series",
+	"title": "WP Post Series",
+	"homepage": "https://wordpress.org/plugins/wp-post-series",
+	"description": "Lets you setup a simple series of posts using taxonomies. Posts within a series will show an information box above the content automatically with links to other posts in the series and a description.",
+	"author": "Mike Jolley",
+	"license": "GPL-3.0-or-later",
+	"version": "2.0.0",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/mikejolley/wp-post-series.git"
+	},
+	"bugs": {
+		"url": "https://github.com/mikejolley/wp-post-series/issues"
+	},
+	"babel": {
+		"presets": [
+			"@babel/preset-env"
+		]
+	},
+	"browserslist": [
+		"extends @wordpress/browserslist-config"
+	],
+	"devDependencies": {
+		"@babel/cli": "^7.11.6",
+		"@babel/core": "^7.11.6",
+		"@babel/plugin-transform-runtime": "^7.11.5",
+		"@babel/preset-env": "^7.11.5",
+		"@wordpress/browserslist-config": "^2.7.0",
+		"@wordpress/dependency-extraction-webpack-plugin": "^2.8.0",
+		"babel-loader": "^8.1.0",
+		"babel-minify-webpack-plugin": "^0.3.1",
+		"browserslist": "^4.14.5",
+		"css-loader": "^4.3.0",
+		"mini-css-extract-plugin": "^0.11.3",
+		"postcss": "^8.1.1",
+		"postcss-loader": "^4.0.3",
+		"rimraf": "^3.0.2",
+		"sass": "^1.26.12",
+		"sass-loader": "^10.0.2",
+		"webpack": "^4.44.2",
+		"webpack-cli": "^3.3.12"
+	},
+	"scripts": {
+		"watch": "rimraf build/* && webpack --mode=development --watch --config webpack.config.js",
+		"build": "rimraf build/* && webpack --mode=production --config webpack.config.js"
+	}
+}

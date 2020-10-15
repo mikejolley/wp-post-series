@@ -1,0 +1,17 @@
+/.wordpress-org
+/.git
+/.github
+/node_modules
+/tests
+
+.distignore
+.gitignore
+.gitattributes
+.prettierrc
+composer.json
+composer.lock
+package.json
+package-lock.json
+phpcs.xml
+webpack.config.js
+.editorconfig
