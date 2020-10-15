@@ -1,31 +1,84 @@
-.wp-post-series-box, .entry-content .wp-post-series-box  {
-	border: 1px solid #000;
-	padding: 0 1em;
-	margin: 1em 0;
+.wp-post-series-box,
+.entry-content .wp-post-series-box {
+	margin: 0 0 1em 0;
+	padding: 0;
+	border-radius: 5px;
+	border: 2px solid #ccc;
+
+	.wp-post-series-box__description,
+	.wp-post-series-box__scheduled_text {
+		font-style: italic;
+	}
+	.wp-post-series-box__current {
+		font-weight: bold;
+	}
+	.wp-post-series-box__name {
+		margin: 0;
+		font-weight: bold;
+	}
+	.wp-post-series-box__description {
+		margin: 0;
+		p {
+			margin: 0;
+		}
+		p + p {
+			margin: 1em 0 0 0;
+		}
+	}
+	.wp-post-series-box__posts {
+		ol {
+			list-style: decimal inside;
+			margin: 0;
+			padding:  1em;
+			border-top: 1px solid #ccc;
+			background-color: rgba( 0, 0, 0, 0.03 );
+
+			li {
+				margin: 0;
+				padding: 0;
+			}
+		}
+	}
+	.series-toggle {
+		display: none;
+	}
+	.series-toggle-label {
+		display: block;
+		position: relative;
+		padding: 1em;
+	}
+	&.wp-post-series-box--expandable {
+		.series-toggle-label {
+			cursor: pointer;
+
+			&:focus {
+				outline: auto;
+			}
+			&:before {
+				content: ' ';
+				position: absolute;
+				top: 50%;
+				right: 1em;
+				margin-top: -3px;
+				display: block;
+				transform: translateY(-2px);
+				border-top: 5px solid transparent;
+				border-bottom: 5px solid transparent;
+				border-left: 5px solid currentColor;
+				transition: transform .2s ease-out;
+			}
+		}
+		.wp-post-series-box__posts {
+			max-height: 0px;
+			overflow: hidden;
+			transition: max-height .25s ease-in-out;
+		}
+		.series-toggle:checked + .series-toggle-label + .wp-post-series-box__posts {
+			max-height: 100vh;
+		}
+		.series-toggle:checked + .series-toggle-label::before {
+			transform: rotate(90deg) translateX(-3px);
+		}
+	}
 }
-.wp-post-series-box.expandable, .entry-content .wp-post-series-box.expandable {
-	cursor: pointer;
-}
-.wp-post-series-name, .entry-content .wp-post-series-name {
-	font-weight: bold;
-	margin: 1em 0;
-}
-.wp-post-series-description, .entry-content .wp-post-series-description {
-	margin: 0;
-}
-.wp-post-series-description p, .entry-content .wp-post-series-description p {
-	margin: 1em 0;
-}
-.wp-post-series-nav, .entry-content .wp-post-series-nav {
-	display:none;
-	margin: 1em 0;
-}
-.wp-post-series-nav ol, .entry-content .wp-post-series-nav ol {
-	list-style-type: decimal;
-	margin:0;
-}
-.wp-post-series-show-nav, .wp-post-series-show-description,
-.entry-content .wp-post-series-show-nav, .entry-content .wp-post-series-show-description, {
-	float: right;
-	padding: 0 1em 0 0;
-}
+

@@ -1,7 +1,12 @@
-jQuery('.wp-post-series-box.expandable').click(function(e) {
-	if ( jQuery( e.target ).is('a') ) {
-        return true;
-    }
-	jQuery(this).closest('.wp-post-series-box').find('.wp-post-series-nav').slideToggle();
-	return false;
+let myLabels = document.querySelectorAll('.series-toggle-label');
+
+Array.from(myLabels).forEach((label) => {
+	label.addEventListener('keydown', (e) => {
+		// 32 === spacebar
+		// 13 === enter
+		if (e.which === 32 || e.which === 13) {
+			e.preventDefault();
+			label.click();
+		}
+	});
 });

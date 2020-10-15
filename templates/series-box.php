@@ -1,34 +1,40 @@
-<aside class="<?php echo $post_series_box_class; ?>">
-	<p class="wp-post-series-name">
-		<?php
-			if ( apply_filters( 'wp_post_series_enable_archive', false ) ) {
-				$series_name = '<a href="' . get_term_link( $series->term_id, 'post_series' ) . '">' . esc_html( $series->name ) . '</a>';
-			} else {
-				$series_name = esc_html( $series->name );
-			}
-			printf( __( 'This is post %d of %d in the series <em>&ldquo;%s&rdquo;</em>', 'wp-post-series' ), $post_in_series, sizeof( $posts_in_series ), $series_name );
-		?>
-	</p>
+<?php
+/**
+ * Post Series Information Template.
+ *
+ * @package MJ/PostSeries
+ */
+?>
+<aside class="<?php echo esc_attr( $post_series_box_class ); ?>">
+	<input id="collapsible-series-<?php echo esc_attr( $post_series_id ); ?>" class="series-toggle" type="checkbox">
+	<label for="collapsible-series-<?php echo esc_attr( $post_series_id ); ?>" class="series-toggle-label" tabindex="0">
+		<p class="wp-post-series-box__name wp-post-series-name">
+			<?php
+			echo wp_kses_post(
+				sprintf(
+					/* translators: %1$d Post index, %2$d number of posts in series, %3$s series name/link */
+					__( 'This is post %1$d of %2$d in the series <em>&ldquo;%3$s&rdquo;</em>', 'wp-post-series' ),
+					$post_in_series,
+					count( $posts_in_series ),
+					$series_name
+				)
+			);
+			?>
+		</p>
 
-	<?php if ( is_single() && sizeof( $posts_in_series ) > 1 ) : ?>
-
-		<nav class="wp-post-series-nav">
+		<?php if ( $description ) : ?>
+			<div class="wp-post-series-box__description wp-post-series-description">
+				<?php echo wp_kses_post( $description ); ?>
+			</div>
+		<?php endif; ?>
+	</label>
+	<?php if ( $show_posts_in_series ) : ?>
+		<div class="wp-post-series-box__posts">
 			<ol>
-				<?php foreach ( $posts_in_series as $key => $post_id ) : ?>
-					<li>
-						<?php if ( ! is_single( $post_id ) && 'publish' === get_post_status( $post_id ) ) echo '<a href="' . get_permalink( $post_id ) . '">'; ?>
-						<?php echo 'publish' === get_post_status( $post_id ) ? get_the_title( $post_id ) : sprintf( __( '%s &ndash; <em>Scheduled for %s</em>', 'wp-post-series' ), get_the_title( $post_id ), get_post_time( get_option( 'date_format' ), false, $post_id, true ) ); ?>
-						<?php if ( ! is_single( $post_id ) && 'publish' === get_post_status( $post_id ) ) echo '</a>'; ?>
-					</li>
+				<?php foreach ( $posts_in_series_links as $link ) : ?>
+					<li><?php echo wp_kses_post( $link ); ?></li>
 				<?php endforeach; ?>
 			</ol>
-		</nav>
-	<?php endif; ?>
-
-	<?php if ( is_single() ) : ?>
-		<?php if ( $description ) : ?>
-			<div class="wp-post-series-description"><?php echo wpautop( wptexturize( $description ) ); ?></div>
-		<?php endif; ?>
-
+		</div>
 	<?php endif; ?>
 </aside>
