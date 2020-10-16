@@ -1,10 +1,14 @@
 .wp-post-series-box,
 .entry-content .wp-post-series-box {
-	margin: 0 0 1em 0;
+	margin: 1.5em 0;
 	padding: 0;
 	border-radius: 5px;
 	border: 2px solid  rgba( 0, 0, 0, 0.2 );
 	box-shadow: 0 2px 3px rgba( 0, 0, 0, 0.05 );
+
+	&:first-child {
+		margin-top: 0;
+	}
 
 	.wp-post-series-box__description,
 	.wp-post-series-box__scheduled_text {

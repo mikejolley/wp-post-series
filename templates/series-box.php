@@ -4,8 +4,9 @@
  *
  * @package MJ/PostSeries
  */
+
 ?>
-<aside class="<?php echo esc_attr( $post_series_box_class ); ?>">
+<div class="<?php echo esc_attr( $post_series_box_class ); ?>">
 	<input id="collapsible-series-<?php echo esc_attr( $post_series_id ); ?>" class="series-toggle" type="checkbox">
 	<label for="collapsible-series-<?php echo esc_attr( $post_series_id ); ?>" class="series-toggle-label" tabindex="0">
 		<p class="wp-post-series-box__name wp-post-series-name">
@@ -37,4 +38,4 @@
 			</ol>
 		</div>
 	<?php endif; ?>
-</aside>
+</div>

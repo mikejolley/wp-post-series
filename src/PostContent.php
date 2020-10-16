@@ -36,19 +36,24 @@ class PostContent {
 	 * Initialize class features.
 	 */
 	private function init() {
-		add_filter( 'the_content', array( $this, 'render_post_series_box' ) );
+		add_filter( 'the_content', array( $this, 'filter_the_content' ) );
 	}
 
 	/**
-	 * Append/Prepend the series info box to the post content
+	 * Filters the_content hook.
 	 *
 	 * @param string $content Post content.
-	 * @return string Amended post content.
+	 * @return string
 	 */
-	public function render_post_series_box( $content ) {
+	public function filter_the_content( $content ) {
 		global $post;
 
 		if ( ! is_main_query() || empty( $post ) || 'post' !== $post->post_type ) {
+			return $content;
+		}
+
+		// Disable automatic insertion if already including the series box e.g. with Gutenberg.
+		if ( strstr( $content, 'wp-post-series-box' ) ) {
 			return $content;
 		}
 
@@ -59,6 +64,24 @@ class PostContent {
 			return $content;
 		}
 
+		$series_html = $this->render_post_series( $post_id, $series );
+
+		// Append or prepend.
+		if ( apply_filters( 'wp_post_series_append_info', false ) ) {
+			return $content . $series_html;
+		}
+
+		return $series_html . $content;
+	}
+
+	/**
+	 * Render a series.
+	 *
+	 * @param int      $post_id Current Post ID.
+	 * @param \WP_Term $series Series term to show.
+	 * @return string
+	 */
+	public function render_post_series( $post_id, $series ) {
 		wp_enqueue_script( 'wp-post-series' );
 
 		$term_description      = term_description( $series->term_id, 'post_series' );
@@ -109,14 +132,7 @@ class PostContent {
 			)
 		);
 
-		$info_box = ob_get_clean();
-
-		// Append or prepend.
-		if ( apply_filters( 'wp_post_series_append_info', false ) ) {
-			return $content . $info_box;
-		}
-
-		return $info_box . $content;
+		return ob_get_clean();
 	}
 
 	/**

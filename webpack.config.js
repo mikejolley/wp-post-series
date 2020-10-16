@@ -3,7 +3,7 @@ const path = require('path');
 const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
 const MinifyPlugin = require('babel-minify-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const config = {
+const frontConfig = {
 	mode: 'production',
 	entry: {
 		frontend: './assets/js/frontend.js',
@@ -15,7 +15,7 @@ const config = {
 	module: {
 		rules: [
 			{
-				test: /\.js$/,
+				test: /\.jsx?$/,
 				include: [path.resolve(__dirname, 'assets/js')],
 				use: {
 					loader: 'babel-loader?cacheDirectory',
@@ -35,6 +35,65 @@ const config = {
 						],
 						plugins: [
 							require.resolve('@babel/plugin-transform-runtime'),
+						].filter(Boolean),
+					},
+				},
+			},
+		],
+	},
+	plugins: [
+		new DependencyExtractionWebpackPlugin({
+			injectPolyfill: true,
+		}),
+		new MinifyPlugin(),
+	],
+};
+const blocksConfig = {
+	mode: 'production',
+	devtool: false,
+	entry: {
+		'wp-post-series-block': './assets/js/post-series-block/index.js',
+	},
+	output: {
+		path: path.resolve(__dirname, 'build'),
+		filename: '[name].js',
+		library: ['mj', 'blocks', '[name]'],
+		libraryTarget: 'this',
+		// This fixes an issue with multiple webpack projects using chunking
+		// overwriting each other's chunk loader function.
+		// See https://webpack.js.org/configuration/output/#outputjsonpfunction
+		jsonpFunction: 'webpackMjBlocksJsonp',
+	},
+	optimization: {
+		splitChunks: {
+			minSize: 0,
+			cacheGroups: {
+				commons: {
+					test: /[\\/]node_modules[\\/]/,
+					name: 'vendors',
+					chunks: 'all',
+					enforce: true,
+				},
+			},
+		},
+	},
+	module: {
+		rules: [
+			{
+				test: /\.jsx?$/,
+				include: [path.resolve(__dirname, 'assets/js')],
+				exclude: /node_modules/,
+				use: {
+					loader: 'babel-loader?cacheDirectory',
+					options: {
+						presets: ['@wordpress/babel-preset-default'],
+						plugins: [
+							require.resolve(
+								'babel-plugin-transform-react-remove-prop-types'
+							),
+							require.resolve(
+								'@babel/plugin-proposal-class-properties'
+							),
 						].filter(Boolean),
 					},
 				},
@@ -77,4 +136,4 @@ const styleConfig = {
 	},
 };
 
-module.exports = [config, styleConfig];
+module.exports = [frontConfig, blocksConfig, styleConfig];
