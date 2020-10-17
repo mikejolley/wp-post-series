@@ -67,8 +67,14 @@ class PostSeries {
 				'style'           => 'wp-post-series',
 				'render_callback' => array( $this, 'render' ),
 				'attributes'      => array(
-					'series' => array(
+					'series'          => array(
 						'type' => 'string',
+					),
+					'showDescription' => array(
+						'type' => 'boolean',
+					),
+					'showPosts'       => array(
+						'type' => 'boolean',
 					),
 				),
 				'supports'        => [],
@@ -84,14 +90,22 @@ class PostSeries {
 	 * @return string Rendered block type output.
 	 */
 	public function render( $attributes = [], $content = '' ) {
+		$attributes  = wp_parse_args(
+			$attributes,
+			array(
+				'series'          => '',
+				'showDescription' => true,
+				'showPosts'       => false,
+			)
+		);
 		$series_slug = ! empty( $attributes['series'] ) ? $attributes['series'] : '';
 		$post_id     = get_the_ID();
-		$series      = $series_slug ? get_term_by( 'slug', $series_slug ) : \MJ\PostSeries\get_post_series( $post_id );
+		$series      = $series_slug ? get_term_by( 'slug', $series_slug, 'post_series' ) : \MJ\PostSeries\get_post_series( $post_id );
 
 		if ( ! $series || is_wp_error( $series ) ) {
 			return $content;
 		}
 
-		return $this->content->render_post_series( $post_id, $series );
+		return $this->content->render_post_series( $post_id, $series, $attributes['showDescription'], $attributes['showPosts'] );
 	}
 }

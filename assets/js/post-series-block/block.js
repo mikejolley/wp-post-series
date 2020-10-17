@@ -20,7 +20,7 @@ const EmptyPlaceholder = () => (
 );
 
 /**
- * Component displaying a product search form.
+ * Component displaying a post series.
  *
  * TODO:
  * Add option to select a series to show, default to current

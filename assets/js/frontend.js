@@ -1,4 +1,4 @@
-let myLabels = document.querySelectorAll('.series-toggle-label');
+let myLabels = document.querySelectorAll('.wp-post-series-box__label');
 
 Array.from(myLabels).forEach((label) => {
 	label.addEventListener('keydown', (e) => {

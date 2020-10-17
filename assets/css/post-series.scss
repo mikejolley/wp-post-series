@@ -44,16 +44,17 @@
 			}
 		}
 	}
-	.series-toggle {
+	.wp-post-series-box__toggle_checkbox {
 		display: none;
 	}
-	.series-toggle-label {
+	.wp-post-series-box__label {
 		display: block;
 		position: relative;
 		padding: 1em;
+		cursor: default;
 	}
 	&.wp-post-series-box--expandable {
-		.series-toggle-label {
+		.wp-post-series-box__label {
 			cursor: pointer;
 
 			&:focus {
@@ -78,10 +79,10 @@
 			overflow: hidden;
 			transition: max-height .25s ease-in-out;
 		}
-		.series-toggle:checked + .series-toggle-label + .wp-post-series-box__posts {
+		.wp-post-series-box__toggle_checkbox:checked + .wp-post-series-box__label + .wp-post-series-box__posts {
 			max-height: 100vh;
 		}
-		.series-toggle:checked + .series-toggle-label::before {
+		.wp-post-series-box__toggle_checkbox:checked + .wp-post-series-box__label::before {
 			transform: rotate(90deg) translateX(-3px);
 		}
 	}

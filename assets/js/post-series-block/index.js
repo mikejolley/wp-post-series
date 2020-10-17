@@ -29,6 +29,14 @@ registerBlockType('mj/wp-post-series', {
 			type: 'string',
 			default: '',
 		},
+		showDescription: {
+			type: 'boolean',
+			default: true,
+		},
+		showPosts: {
+			type: 'boolean',
+			default: false,
+		},
 	},
 	edit,
 	save() {

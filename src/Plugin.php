@@ -49,7 +49,7 @@ class Plugin {
 	 */
 	private function init() {
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
-		add_action( 'init', array( $this, 'register_block_type_scripts' ) );
+		add_action( 'init', array( $this, 'register_assets' ) );
 		add_action( 'init', array( $this, 'register_block_types' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
@@ -91,9 +91,9 @@ class Plugin {
 	}
 
 	/**
-	 * Register block type scripts.
+	 * Register block type scripts and styles.
 	 */
-	public function register_block_type_scripts() {
+	public function register_assets() {
 		wp_register_style( 'wp-post-series', plugins_url( 'build/post-series.css', $this->file ), '', filemtime( dirname( __DIR__ ) . '/build/post-series.css' ) );
 		wp_register_script( 'wp-post-series-vendors', plugins_url( 'build/vendors.js', $this->file ), [], filemtime( dirname( __DIR__ ) . '/build/vendors.js' ), false );
 		$this->register_script_asset( 'wp-post-series', plugins_url( 'build/frontend.js', $this->file ), dirname( __DIR__ ) . '/build/frontend.asset.php', [], true );
