@@ -56,6 +56,8 @@ The manual installation method involves downloading the plugin and uploading it 
 == Changelog ==
 
 = 2.0.0 =
+* Feature - New Post Series Block for use in the new editor.
+* Feature - If the post does not contain the post series block, post series are still injected via the_content hook.
 * Refactor - Rewritten majority of plugin using more up to date standards and namespaces.
 * Refactor - Improved template markup and default styling.
 * Refactor - Content toggle no longer relies om jQuery.

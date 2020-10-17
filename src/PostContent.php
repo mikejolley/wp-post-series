@@ -79,11 +79,12 @@ class PostContent {
 	 *
 	 * @param int      $post_id Current Post ID.
 	 * @param \WP_Term $series Series to show.
+	 * @param string   $class_name Custom classname.
 	 * @param bool     $show_description Whether or not to display the series description.
 	 * @param bool     $show_posts Whether or not to display the posts by default, or toggle them.
 	 * @return string
 	 */
-	public function render_post_series( $post_id, $series, $show_description = true, $show_posts = false ) {
+	public function render_post_series( $post_id, $series, $class_name = '', $show_description = true, $show_posts = false ) {
 		wp_enqueue_script( 'wp-post-series' );
 
 		$term_description      = term_description( $series->term_id, 'post_series' );
@@ -111,7 +112,7 @@ class PostContent {
 			)
 		);
 		$post_in_series        = array_search( $post_id, $posts_in_series, true ) + 1;
-		$post_series_box_class = 'wp-post-series-box series-' . $series->slug;
+		$post_series_box_class = trim( 'wp-post-series-box series-' . $series->slug . ' ' . $class_name );
 		$has_multiple_posts    = count( $posts_in_series ) > 1;
 
 		if ( ! $show_posts && $has_multiple_posts ) {
@@ -171,7 +172,7 @@ class PostContent {
 		if ( false === $post_in_series ) {
 			return sprintf(
 				/* translators: %s series name/link */
-				__( 'Series: <em>&ldquo;%s&rdquo;</em>', 'wp-post-series' ),
+				__( 'Series: <em>%s</em>', 'wp-post-series' ),
 				$series_name
 			);
 		}

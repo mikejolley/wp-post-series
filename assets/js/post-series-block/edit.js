@@ -14,7 +14,7 @@ import {
  * Internal dependencies
  */
 import Block from './block.js';
-import { getTermBy, withPostSeriesTerms } from '../hocs/with-post-series-terms';
+import withPostSeriesTerms from '../hocs/with-post-series-terms';
 
 /**
  * Edit Component.
@@ -27,7 +27,7 @@ const Edit = ({ attributes, setAttributes, termsList, termsLoading }) => {
 				<PanelBody title={__('Content', 'wp-post-series')} initialOpen>
 					{!termsLoading && (
 						<SelectControl
-							label={__('Series', 'wp-post-series')}
+							label={__('Show series', 'wp-post-series')}
 							value={series}
 							options={[
 								{

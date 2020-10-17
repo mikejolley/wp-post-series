@@ -76,6 +76,9 @@ class PostSeries {
 					'showPosts'       => array(
 						'type' => 'boolean',
 					),
+					'className'       => array(
+						'type' => 'string',
+					),
 				),
 				'supports'        => [],
 			)
@@ -96,6 +99,7 @@ class PostSeries {
 				'series'          => '',
 				'showDescription' => true,
 				'showPosts'       => false,
+				'className'       => '',
 			)
 		);
 		$series_slug = ! empty( $attributes['series'] ) ? $attributes['series'] : '';
@@ -106,6 +110,6 @@ class PostSeries {
 			return $content;
 		}
 
-		return $this->content->render_post_series( $post_id, $series, $attributes['showDescription'], $attributes['showPosts'] );
+		return $this->content->render_post_series( $post_id, $series, $attributes['className'], $attributes['showDescription'], $attributes['showPosts'] );
 	}
 }

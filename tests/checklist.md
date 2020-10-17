@@ -10,6 +10,12 @@
   - [ ] Functional list of posts
   - [ ] Toggle works on click
   - [ ] Descriptions are shown correctly
+- [ ] Post Series Block
+  - [ ] Can be inserted
+  - [ ] Shows current series
+  - [ ] Shows chosen series
+  - [ ] Saves/loads correctly
+  - [ ] Has preview
 - [ ] Compatibility
   - [ ] Runs on WP 5.0
   - [ ] Runs on PHP 5.6
