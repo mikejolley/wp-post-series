@@ -52,8 +52,7 @@ The manual installation method involves downloading the plugin and uploading it 
 == Screenshots ==
 
 1. Post Series Display 
-2. Post Series Taxonomy Screen 
-3. Post Series Selection within the editor
+2. Post Series Block Settings
 
 == Changelog ==
 
