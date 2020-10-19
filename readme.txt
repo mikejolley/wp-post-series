@@ -11,14 +11,16 @@ Publish and link together a series of posts using a new "series" taxonomy. Autom
 
 == Description ==
 
-WP Post Series is a _lightweight_ plugin for making a series of posts and showing information about the series on the post page. The information box is prepended to the post content, and it can work with any theme (given a bit of CSS styling) - no setup required.
+WP Post Series is a _lightweight_ plugin for making a series of posts and showing information about the series on the post page. 
+
+Posts in a series will automatically show a series box (prepended before the post content), or you can insert them manually using the Post Series Block.
 
 = Features =
 
 * Add post series using the familiar WordPress UI and give each one a description.
 * Assign post series to your posts.
 * Filter posts in the backend by series.
-* Shows the series above the post content.
+* Show the series above the post content or using the Post Series Block in the editor.
 * Developer friendly code — Custom taxonomies & template files.
 
 = Contributing and reporting bugs =
