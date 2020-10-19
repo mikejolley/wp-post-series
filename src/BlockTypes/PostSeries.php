@@ -79,6 +79,9 @@ class PostSeries {
 					'className'       => array(
 						'type' => 'string',
 					),
+					'previewId'       => array(
+						'type' => 'number',
+					),
 				),
 				'supports'        => [],
 			)
@@ -93,18 +96,24 @@ class PostSeries {
 	 * @return string Rendered block type output.
 	 */
 	public function render( $attributes = [], $content = '' ) {
-		$attributes  = wp_parse_args(
+		$attributes = wp_parse_args(
 			$attributes,
 			array(
 				'series'          => '',
 				'showDescription' => true,
 				'showPosts'       => false,
 				'className'       => '',
+				'previewId'       => 0,
 			)
 		);
-		$series_slug = ! empty( $attributes['series'] ) ? $attributes['series'] : '';
-		$post_id     = get_the_ID();
-		$series      = $series_slug ? get_term_by( 'slug', $series_slug, 'post_series' ) : \MJ\PostSeries\get_post_series( $post_id );
+		$post_id    = get_the_ID();
+
+		if ( ! empty( $attributes['previewId'] ) && empty( $attributes['series'] ) ) {
+			$series = get_term_by( 'id', absint( $attributes['previewId'] ), 'post_series' );
+		} else {
+			$series_slug = ! empty( $attributes['series'] ) ? $attributes['series'] : '';
+			$series      = $series_slug ? get_term_by( 'slug', $series_slug, 'post_series' ) : \MJ\PostSeries\get_post_series( $post_id );
+		}
 
 		if ( ! $series || is_wp_error( $series ) ) {
 			return $content;

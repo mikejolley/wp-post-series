@@ -10,10 +10,13 @@ import { registerBlockType } from '@wordpress/blocks';
  */
 import edit from './edit.js';
 
-registerBlockType('mj/wp-post-series', {
-	title: __('Post Series', 'wp-post-series'),
+registerBlockType( 'mj/wp-post-series', {
+	title: __( 'Post Series', 'wp-post-series' ),
 	icon,
-	keywords: [__('series', 'wp-post-series'), __('post', 'wp-post-series')],
+	keywords: [
+		__( 'series', 'wp-post-series' ),
+		__( 'post', 'wp-post-series' ),
+	],
 	category: 'widgets',
 	description: __(
 		'Show a list of posts in the same series.',
@@ -42,4 +45,4 @@ registerBlockType('mj/wp-post-series', {
 	save() {
 		return null;
 	},
-});
+} );

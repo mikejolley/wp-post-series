@@ -2,7 +2,7 @@
 Contributors: mikejolley
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=mike.jolley@me.com&currency_code=&amount=&return=&item_name=Buy+me+a+coffee+for+WP+Post+Series
 Tags: series, post series, organize, course, book
-Requires at least: 5.0
+Requires at least: 5.3
 Tested up to: 5.6
 Requires PHP: 5.6
 Stable tag: 1.1.0
