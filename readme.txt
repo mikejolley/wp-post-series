@@ -2,10 +2,10 @@
 Contributors: mikejolley
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=mike.jolley@me.com&currency_code=&amount=&return=&item_name=Buy+me+a+coffee+for+WP+Post+Series
 Tags: series, post series, organize, course, book
-Requires at least: 5.3
+Requires at least: 5.4
 Tested up to: 5.6
 Requires PHP: 5.6
-Stable tag: 1.1.0
+Stable tag: 2.0.0
 
 Publish and link together a series of posts using a new "series" taxonomy. Automatically display links to other posts in a series above your content.
 
@@ -46,7 +46,7 @@ In the search field type "WP Post Series" and click Search Plugins. Once you've 
 The manual installation method involves downloading the plugin and uploading it to your webserver via your favourite FTP application.
 
 * Download the plugin file to your computer and unzip it
-* Using an FTP program, or your hosting control panel, upload the unzipped plugin folder to your WordPress installation's `wp-content/plugins/` directory.
+* Using an FTP program, or your hosting control panel, upload the unzipped plugin folder to your WordPress `wp-content/plugins/` directory.
 * Activate the plugin from the Plugins menu within the WordPress admin.
 
 == Screenshots ==

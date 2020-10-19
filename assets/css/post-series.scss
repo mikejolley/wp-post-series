@@ -1,6 +1,8 @@
 .wp-post-series-box,
-.entry-content .wp-post-series-box {
-	margin: 1.5em 0;
+.entry-content .wp-post-series-box,
+#content .wp-post-series-box {
+	margin-top: 1.5em;
+	margin-bottom: 1.5em;
 	padding: 0;
 	border-radius: 5px;
 	border: 2px solid  rgba( 0, 0, 0, 0.2 );
@@ -51,6 +53,7 @@
 		display: block;
 		position: relative;
 		padding: 1em;
+		margin: 0;
 		cursor: default;
 	}
 	&.wp-post-series-box--expandable {
