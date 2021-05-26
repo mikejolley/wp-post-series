@@ -37,7 +37,7 @@
 		"babel-loader": "^8.1.0",
 		"babel-minify-webpack-plugin": "^0.3.1",
 		"babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-		"browserslist": "^4.14.5",
+		"browserslist": "^4.16.5",
 		"css-loader": "^4.3.0",
 		"eslint": "6.8.0",
 		"eslint-config-prettier": "6.11.0",
