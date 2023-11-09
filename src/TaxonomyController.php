@@ -81,7 +81,12 @@ class TaxonomyController {
 	 */
 	public function post_series_meta_box( $post ) {
 		$current_series    = get_post_series( $post->ID );
-		$current_series_id = $current_series->term_id;
+		if ( $current_series && is_object( $current_series ) ) {
+			$current_series_id = $current_series->term_id;
+		} else {
+			$current_series_id = 0;
+		}
+
 		$taxonomy_data     = get_taxonomy( 'post_series' );
 		$post_series_terms = get_terms(
 			'post_series',
