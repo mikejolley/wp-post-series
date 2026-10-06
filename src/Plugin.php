@@ -95,10 +95,11 @@ class Plugin {
 	 * inserted series box.
 	 */
 	public function register_assets() {
-		$build_dir   = dirname( $this->file ) . '/build/';
-		$style_asset = $this->get_asset( $build_dir . 'post-series.asset.php' );
+		$build_dir  = dirname( $this->file ) . '/build/';
+		$style_path = $build_dir . 'post-series.css';
 
-		wp_register_style( 'wp-post-series', plugins_url( 'build/post-series.css', $this->file ), array(), $style_asset['version'] );
+		// Stylesheet-only entries don't get an asset file, so version by modification time.
+		wp_register_style( 'wp-post-series', plugins_url( 'build/post-series.css', $this->file ), array(), file_exists( $style_path ) ? (string) filemtime( $style_path ) : false );
 		wp_style_add_data( 'wp-post-series', 'rtl', 'replace' );
 
 		$script_asset = $this->get_asset( $build_dir . 'frontend.asset.php' );

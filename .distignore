@@ -1,21 +1,22 @@
+# Repository and tooling files excluded from the WordPress.org release.
 /.wordpress-org
 /.git
 /.github
 /node_modules
 /tests
+/artifacts
 
 .distignore
-.gitignore
+.editorconfig
 .gitattributes
+.gitignore
+.nvmrc
 .prettierrc
+.wp-env.json
 composer.json
 composer.lock
 package.json
 package-lock.json
 phpcs.xml
-webpack.config.js
-.editorconfig
-.nvmrc
-.wp-env.json
 phpunit.xml.dist
-/artifacts
+webpack.config.js
