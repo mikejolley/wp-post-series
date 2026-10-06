@@ -15,6 +15,7 @@
 .wp-env.json
 composer.json
 composer.lock
+eslint.config.cjs
 package.json
 package-lock.json
 phpcs.xml

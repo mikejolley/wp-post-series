@@ -6,9 +6,8 @@ Thumbs.db
 /vendor
 /node_modules
 
-# Build output (`npm run build`, `npm run plugin-zip`)
+# Build output
 /build
-/*.zip
 
 # Tests
 /artifacts
