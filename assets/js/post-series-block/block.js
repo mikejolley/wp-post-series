@@ -35,7 +35,7 @@ const PostSeriesBlock = ( { attributes, currentPostSeriesId } ) => {
 		return (
 			<EmptyPlaceholder
 				message={ __(
-					'This block shows a list of posts in a series. To get started, select a series for this post in the post settings panel.',
+					'This block shows the posts in a series. Choose a series in the block settings, or it will show the series of the post being viewed.',
 					'wp-post-series'
 				) }
 			/>

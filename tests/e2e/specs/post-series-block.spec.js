@@ -146,4 +146,49 @@ test.describe( 'Post Series List block', () => {
 		await legacyLabel.click();
 		await expect( postList ).toBeVisible();
 	} );
+
+	test( 'long series are not cut off when expanded', async ( {
+		page,
+		requestUtils,
+	} ) => {
+		const longSeries = await requestUtils.createRecord( 'post_series', {
+			name: 'E2E Long Series',
+		} );
+		try {
+			let lastPost;
+			for ( let i = 1; i <= 30; i++ ) {
+				lastPost = await requestUtils.createPost( {
+					title: `Long series part ${ i } with a title long enough to wrap`,
+					status: 'publish',
+					date: new Date( Date.UTC( 2020, 0, i ) ).toISOString(),
+					post_series: [ longSeries.id ],
+				} );
+			}
+
+			await page.setViewportSize( { width: 390, height: 600 } );
+			await page.goto( lastPost.link );
+			await page.locator( 'div.wp-post-series-box__label' ).click();
+
+			// Nothing in the expanded list is clipped (overflow is hidden, so clipped items can't be seen or scrolled to).
+			const postList = page.locator( '.wp-post-series-box__posts' );
+			await expect
+				.poll( () =>
+					postList.evaluate(
+						( el ) => el.scrollHeight - el.clientHeight
+					)
+				)
+				.toBeLessThanOrEqual( 1 );
+			await expect(
+				page.locator( '.wp-post-series-box__current' )
+			).toHaveText(
+				'Long series part 30 with a title long enough to wrap'
+			);
+		} finally {
+			await requestUtils.rest( {
+				method: 'DELETE',
+				path: `/wp/v2/post_series/${ longSeries.id }`,
+				params: { force: true },
+			} );
+		}
+	} );
 } );

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-06T20:03:23+00:00\n"
+"POT-Creation-Date: 2026-10-06T21:00:31+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: wp-post-series\n"
@@ -40,19 +40,23 @@ msgid "http://mikejolley.com"
 msgstr ""
 
 #. translators: %s series name/link
-#: src/PostContent.php:185
+#: src/PostContent.php:228
 #, php-format
 msgid "Series: <em>%s</em>"
 msgstr ""
 
 #. translators: %1$d Post index, %2$d number of posts in series, %3$s series name/link
-#: src/PostContent.php:192
+#: src/PostContent.php:235
 #, php-format
 msgid "This is post %1$d of %2$d in the series <em>&ldquo;%3$s&rdquo;</em>"
 msgstr ""
 
+#: src/PostContent.php:265
+msgid "(no title)"
+msgstr ""
+
 #. translators: %s scheduled post date
-#: src/PostContent.php:224
+#: src/PostContent.php:271
 #, php-format
 msgid "Scheduled for %s"
 msgstr ""
@@ -183,7 +187,7 @@ msgid "This block shows a list of posts within the selected series."
 msgstr ""
 
 #: build/post-series-block/index.js:1
-msgid "This block shows a list of posts in a series. To get started, select a series for this post in the post settings panel."
+msgid "This block shows the posts in a series. Choose a series in the block settings, or it will show the series of the post being viewed."
 msgstr ""
 
 #: build/post-series-block/index.js:1

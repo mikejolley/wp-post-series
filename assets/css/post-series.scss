@@ -81,6 +81,8 @@
 
 		.wp-post-series-box__label {
 			cursor: pointer;
+			// Room for the arrow, so long series names don't run under it.
+			padding-right: 2.5em;
 
 			&::before {
 				content: " ";
@@ -121,18 +123,43 @@
 
 		// Hidden (not just zero height) when collapsed so links aren't
 		// reachable by keyboard or screen readers. Visibility switches after
-		// the collapse animation, and immediately on expand.
+		// the collapse animation, and immediately on expand. Expands to the
+		// full height of the list; browsers without interpolate-size toggle
+		// without animating.
 		.wp-post-series-box__posts {
-			max-height: 0;
+			height: 0;
 			overflow: hidden;
 			visibility: hidden;
-			transition: max-height 0.25s ease-in-out, visibility 0s 0.25s;
+			interpolate-size: allow-keywords;
+			transition: height 0.25s ease-in-out, visibility 0s 0.25s;
 		}
 
 		.wp-post-series-box__toggle_checkbox:checked + .wp-post-series-box__label + .wp-post-series-box__posts {
-			max-height: 100vh;
+			height: auto;
 			visibility: visible;
-			transition: max-height 0.25s ease-in-out, visibility 0s;
+			transition: height 0.25s ease-in-out, visibility 0s;
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+
+			.wp-post-series-box__posts,
+			.wp-post-series-box__toggle_checkbox:checked + .wp-post-series-box__label + .wp-post-series-box__posts,
+			.wp-post-series-box__label::before {
+				transition: none;
+			}
+		}
+
+		// Print the full list, without the toggle arrow.
+		@media print {
+
+			.wp-post-series-box__posts {
+				height: auto;
+				visibility: visible;
+			}
+
+			.wp-post-series-box__label::before {
+				display: none;
+			}
 		}
 
 		.wp-post-series-box__toggle_checkbox:checked + .wp-post-series-box__label::before {

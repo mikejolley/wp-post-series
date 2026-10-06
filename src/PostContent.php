@@ -23,6 +23,13 @@ class PostContent {
 	private $template;
 
 	/**
+	 * IDs of posts the Post Series List block has already rendered a box for during this request.
+	 *
+	 * @var array<int, true>
+	 */
+	private $block_rendered_post_ids = array();
+
+	/**
 	 * Constructor.
 	 *
 	 * @param Template $template Template controller class instance.
@@ -59,15 +66,23 @@ class PostContent {
 			return $content;
 		}
 
-		// Disable automatic insertion if already including the series box e.g. with Gutenberg.
-		if ( strstr( $content, 'wp-post-series-box' ) ) {
+		$post_id = absint( $post->ID );
+
+		// The block already shows the series for this post, e.g. in the post content, a template part or a widget.
+		if ( isset( $this->block_rendered_post_ids[ $post_id ] ) || $this->current_template_has_block() ) {
 			return $content;
 		}
 
-		$post_id = absint( $post->ID );
-		$series  = get_post_series( $post_id );
+		$series = get_post_series( $post_id );
 
-		if ( ! $series ) {
+		/**
+		 * Filters whether to automatically add the series box to the post content.
+		 *
+		 * @param bool           $auto_insert Whether to add the series box. Default true.
+		 * @param int            $post_id     Post ID.
+		 * @param \WP_Term|false $series      The post's series, or false if it has none.
+		 */
+		if ( ! $series || ! apply_filters( 'wp_post_series_auto_insert', true, $post_id, $series ) ) {
 			return $content;
 		}
 
@@ -82,6 +97,27 @@ class PostContent {
 	}
 
 	/**
+	 * Record that the Post Series List block rendered a series box for a post, so it isn't added again.
+	 *
+	 * @param int $post_id Post ID.
+	 */
+	public function mark_block_rendered( $post_id ) {
+		$this->block_rendered_post_ids[ absint( $post_id ) ] = true;
+	}
+
+	/**
+	 * Whether the block template being rendered (block themes) contains the Post Series List block. The block may
+	 * render after the post content, so it can't be detected by the time the_content runs.
+	 *
+	 * @return bool
+	 */
+	protected function current_template_has_block() {
+		global $_wp_current_template_content;
+
+		return is_string( $_wp_current_template_content ) && has_block( 'mj/wp-post-series', $_wp_current_template_content );
+	}
+
+	/**
 	 * Render a series.
 	 *
 	 * @param int      $post_id Current Post ID.
@@ -93,6 +129,11 @@ class PostContent {
 	 */
 	public function render_post_series( $post_id, $series, $class_name = '', $show_description = true, $show_posts = false ) {
 		wp_enqueue_script( 'wp-post-series' );
+
+		// Feed readers don't load the stylesheet, so list the posts without the toggle.
+		if ( is_feed() ) {
+			$show_posts = true;
+		}
 
 		$term_description = term_description( $series->term_id );
 
@@ -219,6 +260,10 @@ class PostContent {
 		}
 
 		$title = get_the_title( $post_id );
+
+		if ( '' === trim( wp_strip_all_tags( $title ) ) ) {
+			$title = __( '(no title)', 'wp-post-series' );
+		}
 
 		if ( ! $is_published ) {
 			$title .= ' <span class="wp-post-series-box__scheduled_text">';

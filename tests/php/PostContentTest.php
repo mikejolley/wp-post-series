@@ -100,6 +100,64 @@ class PostContentTest extends TestCase {
 		$this->assertStringContainsString( '<p>Body of part 2.</p>', $content, 'The post content itself is still formatted.' );
 	}
 
+	public function test_series_box_is_not_added_when_the_block_template_contains_the_block() {
+		global $_wp_current_template_content;
+
+		$_wp_current_template_content = '<!-- wp:mj/wp-post-series /--><!-- wp:post-content /-->';
+		$this->go_to_post( $this->post_ids[1] );
+		$content                      = apply_filters( 'the_content', get_post()->post_content );
+		$_wp_current_template_content = null;
+
+		$this->assertStringNotContainsString( 'wp-post-series-box', $content );
+	}
+
+	public function test_series_box_is_not_added_after_the_block_rendered_for_the_post() {
+		$this->go_to_post( $this->post_ids[1] );
+		// E.g. the block in a template part or widget area rendered before the post content.
+		do_blocks( '<!-- wp:mj/wp-post-series /-->' );
+
+		$this->assertStringNotContainsString( 'wp-post-series-box', apply_filters( 'the_content', get_post()->post_content ) );
+	}
+
+	public function test_series_box_is_still_added_when_content_mentions_its_class() {
+		$post_id = self::factory()->post->create( array( 'post_content' => '<code>.wp-post-series-box { color: red; }</code>' ) );
+		wp_set_post_terms( $post_id, array( $this->series->term_id ), 'post_series' );
+		$this->go_to_post( $post_id );
+
+		$this->assertSame( 1, substr_count( apply_filters( 'the_content', get_post()->post_content ), 'class="wp-post-series-box ' ) );
+	}
+
+	public function test_automatic_insertion_can_be_disabled() {
+		add_filter( 'wp_post_series_auto_insert', '__return_false' );
+		$this->go_to_post( $this->post_ids[1] );
+
+		$this->assertStringNotContainsString( 'wp-post-series-box', apply_filters( 'the_content', get_post()->post_content ) );
+	}
+
+	public function test_untitled_posts_are_listed_with_a_placeholder_title() {
+		$untitled_id = self::factory()->post->create(
+			array(
+				'post_title' => '',
+				'post_date'  => gmdate( 'Y-m-d H:i:s' ),
+			)
+		);
+		wp_set_post_terms( $untitled_id, array( $this->series->term_id ), 'post_series' );
+
+		$html = $this->post_content()->render_post_series( $this->post_ids[0], $this->series );
+
+		$this->assertStringContainsString( '<a href="' . esc_url( get_permalink( $untitled_id ) ) . '">(no title)</a>', $html );
+	}
+
+	public function test_feeds_list_posts_without_the_toggle() {
+		$this->go_to( get_feed_link() );
+
+		$html = $this->post_content()->render_post_series( $this->post_ids[0], $this->series );
+
+		$this->assertStringNotContainsString( 'type="checkbox"', $html );
+		$this->assertStringNotContainsString( 'Show all posts in this series', $html );
+		$this->assertStringContainsString( 'Learn PHP part 2', $html );
+	}
+
 	public function test_series_box_is_not_added_to_generated_excerpts() {
 		$this->go_to_post( $this->post_ids[1] );
 

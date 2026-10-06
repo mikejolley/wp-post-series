@@ -84,6 +84,10 @@ class PostSeries {
 			return $content;
 		}
 
+		if ( $post_id ) {
+			$this->content->mark_block_rendered( $post_id );
+		}
+
 		return $this->content->render_post_series( $post_id, $series, $attributes['className'], $attributes['showDescription'], $attributes['showPosts'] );
 	}
 }

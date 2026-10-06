@@ -72,10 +72,17 @@ Yes. Series are available on posts by default. Add other post types with the `wp
 * Fix - Post Series block crashing in the editor on current WordPress versions, and when used on pages or in the site and widget editors.
 * Fix - Series box no longer appears in automatically generated excerpts.
 * Fix - Extra line breaks and spacing in the series box on archive pages that mix block and classic posts.
+* Fix - Series box showing twice when the Post Series List block is also in the theme's template.
+* Fix - A post that mentions the series box's CSS class, or shows other series posts in a Query Loop, keeps its own series box.
+* Fix - Long series are no longer cut off when the post list is expanded.
+* Fix - Untitled posts in a series are listed as "(no title)" rather than an empty link.
+* Fix - Feeds list the posts in a series without the show/hide toggle.
+* Tweak - Long series names no longer run under the toggle arrow, the post list prints in full, and animations respect reduced motion settings.
 * Fix - PHP warning in the classic editor meta box for posts without a series. Props [@pixeline](https://github.com/pixeline).
 * Fix - Series column now shows in the posts list even when the Categories column is removed.
 * Fix - Series admin screens no longer use "Tags" wording, such as "Go to Tags" after editing a series. (#30)
 * Feature - Series can be used with other post types via the `wp_post_series_post_types` filter. (#33)
+* Feature - New `wp_post_series_auto_insert` filter to turn off the automatic series box, e.g. when the block is in a widget area.
 * Tweak - The block is now called "Post Series List" and the taxonomy "Series", so they're distinct from WordPress's own Terms block for series. Existing blocks and series are unaffected.
 * Performance - Series lists no longer run a database query per post.
 * Fix - Fatal error when the series archive link can't be generated.
