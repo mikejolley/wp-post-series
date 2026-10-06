@@ -32,8 +32,8 @@ $toggle_id = uniqid( 'collapsible-series-' . $series->slug );
 	<?php if ( $has_multiple_posts ) : ?>
 		<div class="wp-post-series-box__posts">
 			<ol>
-				<?php foreach ( $posts_in_series_links as $link ) : ?>
-					<li><?php echo wp_kses_post( $link ); ?></li>
+				<?php foreach ( $posts_in_series_links as $series_post_link ) : ?>
+					<li><?php echo wp_kses_post( $series_post_link ); ?></li>
 				<?php endforeach; ?>
 			</ol>
 		</div>

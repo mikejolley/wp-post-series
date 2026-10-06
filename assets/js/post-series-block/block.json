@@ -1,0 +1,37 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "mj/wp-post-series",
+	"title": "Post Series",
+	"category": "widgets",
+	"description": "Show a list of posts in the same series.",
+	"keywords": [ "series", "post" ],
+	"textdomain": "wp-post-series",
+	"attributes": {
+		"series": {
+			"type": "string",
+			"default": ""
+		},
+		"showDescription": {
+			"type": "boolean",
+			"default": true
+		},
+		"showPosts": {
+			"type": "boolean",
+			"default": false
+		},
+		"previewId": {
+			"type": "number"
+		}
+	},
+	"supports": {
+		"html": false,
+		"multiple": true
+	},
+	"example": {
+		"attributes": {}
+	},
+	"editorScript": "file:./index.js",
+	"viewScript": "wp-post-series",
+	"style": "wp-post-series"
+}

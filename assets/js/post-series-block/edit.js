@@ -2,7 +2,7 @@
  * External dependencies
  */
 import { __ } from '@wordpress/i18n';
-import { InspectorControls } from '@wordpress/block-editor';
+import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import {
 	Disabled,
 	PanelBody,
@@ -21,15 +21,16 @@ import withPostSeriesTerms from '../hocs/with-post-series-terms';
 /**
  * Edit Component.
  *
- * @param {Object} props             Incoming props.
- * @param {Array} [props.attributes] Block attributes.
- * @param {Function} [props.setAttributes] Set block attributes.
- * @param {Array} [props.termsList] Array of post_series terms.
- * @param {boolean} [props.termsLoading] True when terms are being loaded from the API.
- * @return {*} The component.
+ * @param {Object}                       props                 Incoming props.
+ * @param {Array}                        [props.attributes]    Block attributes.
+ * @param {(attributes: Object) => void} [props.setAttributes] Set block attributes.
+ * @param {Array}                        [props.termsList]     Array of post_series terms.
+ * @param {boolean}                      [props.termsLoading]  True when terms are being loaded from the API.
+ * @return {Element} The component.
  */
 const Edit = ( { attributes, setAttributes, termsList, termsLoading } ) => {
 	const { series, showDescription, showPosts } = attributes;
+	const blockProps = useBlockProps();
 
 	/**
 	 * Track the post series term assigned to the post (unsaved).
@@ -56,7 +57,7 @@ const Edit = ( { attributes, setAttributes, termsList, termsLoading } ) => {
 
 	return (
 		<>
-			<InspectorControls key="inspector">
+			<InspectorControls>
 				<PanelBody
 					title={ __( 'Content', 'wp-post-series' ) }
 					initialOpen
@@ -95,11 +96,11 @@ const Edit = ( { attributes, setAttributes, termsList, termsLoading } ) => {
 								? __(
 										'Series description is visible.',
 										'wp-post-series'
-								  )
+									)
 								: __(
 										'Series description is hidden.',
 										'wp-post-series'
-								  )
+									)
 						}
 						checked={ showDescription }
 						onChange={ () =>
@@ -118,11 +119,11 @@ const Edit = ( { attributes, setAttributes, termsList, termsLoading } ) => {
 								? __(
 										'Series posts are always visible.',
 										'wp-post-series'
-								  )
+									)
 								: __(
 										'Series posts can be toggled.',
 										'wp-post-series'
-								  )
+									)
 						}
 						checked={ showPosts }
 						onChange={ () =>
@@ -131,12 +132,14 @@ const Edit = ( { attributes, setAttributes, termsList, termsLoading } ) => {
 					/>
 				</PanelBody>
 			</InspectorControls>
-			<Disabled>
-				<Block
-					attributes={ attributes }
-					currentPostSeriesId={ currentPostSeriesId }
-				/>
-			</Disabled>
+			<div { ...blockProps }>
+				<Disabled>
+					<Block
+						attributes={ attributes }
+						currentPostSeriesId={ currentPostSeriesId }
+					/>
+				</Disabled>
+			</div>
 		</>
 	);
 };

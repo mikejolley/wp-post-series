@@ -13,54 +13,28 @@
 	"bugs": {
 		"url": "https://github.com/mikejolley/wp-post-series/issues"
 	},
-	"babel": {
-		"presets": [
-			"@babel/preset-env"
-		]
-	},
-	"browserslist": [
-		"extends @wordpress/browserslist-config"
-	],
 	"devDependencies": {
-		"@babel/cli": "^7.11.6",
-		"@babel/core": "^7.11.6",
-		"@babel/plugin-proposal-async-generator-functions": "^7.12.1",
-		"@babel/plugin-proposal-class-properties": "^7.12.1",
-		"@babel/plugin-proposal-object-rest-spread": "^7.12.1",
-		"@babel/plugin-transform-react-jsx": "^7.12.1",
-		"@babel/plugin-transform-runtime": "^7.11.5",
-		"@babel/preset-env": "^7.11.5",
-		"@wordpress/babel-preset-default": "^4.19.0",
-		"@wordpress/browserslist-config": "^2.7.0",
-		"@wordpress/dependency-extraction-webpack-plugin": "^2.8.0",
-		"@wordpress/eslint-plugin": "^7.3.0",
-		"babel-loader": "^8.1.0",
-		"babel-minify-webpack-plugin": "^0.3.1",
-		"babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-		"browserslist": "^4.14.5",
-		"css-loader": "^4.3.0",
-		"eslint": "6.8.0",
-		"eslint-config-prettier": "6.11.0",
-		"eslint-plugin-jest": "23.19.0",
-		"eslint-plugin-react-hooks": "4.0.0",
-		"mini-css-extract-plugin": "^0.11.3",
-		"postcss": "^8.1.1",
-		"postcss-loader": "^4.0.3",
-		"prettier": "npm:wp-prettier@1.19.1",
-		"rimraf": "^3.0.2",
-		"sass": "^1.26.12",
-		"sass-loader": "^10.0.2",
-		"webpack": "^4.44.2",
-		"webpack-cli": "^3.3.12"
+		"@wordpress/scripts": "^36.0.0"
 	},
 	"scripts": {
-		"watch": "rimraf build/* && webpack --mode=development --watch --config webpack.config.js",
-		"build": "rimraf build/* && webpack --mode=production --config webpack.config.js"
+		"build": "wp-scripts build --webpack-src-dir=assets/js",
+		"start": "wp-scripts start --webpack-src-dir=assets/js",
+		"format": "wp-scripts format",
+		"lint:js": "wp-scripts lint-js assets/js",
+		"lint:css": "wp-scripts lint-style \"assets/**/*.scss\"",
+		"lint:php": "composer run-script phpcs",
+		"lint": "npm run lint:js && npm run lint:css && npm run lint:php",
+		"plugin-zip": "wp-scripts plugin-zip"
 	},
 	"dependencies": {
-		"@wordpress/blocks": "^6.23.0",
-		"@wordpress/i18n": "^3.16.0",
-		"@wordpress/icons": "^2.7.0",
-		"classnames": "^2.2.6"
+		"@wordpress/api-fetch": "^7.56.0",
+		"@wordpress/block-editor": "^18.0.0",
+		"@wordpress/blocks": "^16.1.0",
+		"@wordpress/components": "^41.0.0",
+		"@wordpress/data": "^10.56.0",
+		"@wordpress/element": "^8.8.0",
+		"@wordpress/i18n": "^6.29.0",
+		"@wordpress/icons": "^17.0.0",
+		"@wordpress/server-side-render": "^6.32.0"
 	}
 }

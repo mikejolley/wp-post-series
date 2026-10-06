@@ -80,7 +80,7 @@ class TaxonomyController {
 	 * @param array $post Post being edited.
 	 */
 	public function post_series_meta_box( $post ) {
-		$current_series    = get_post_series( $post->ID );
+		$current_series = get_post_series( $post->ID );
 		if ( $current_series && is_object( $current_series ) ) {
 			$current_series_id = $current_series->term_id;
 		} else {
@@ -89,8 +89,8 @@ class TaxonomyController {
 
 		$taxonomy_data     = get_taxonomy( 'post_series' );
 		$post_series_terms = get_terms(
-			'post_series',
 			array(
+				'taxonomy'   => 'post_series',
 				'hide_empty' => false,
 				'orderby'    => 'name',
 			)
@@ -165,15 +165,15 @@ class TaxonomyController {
 	public function filter_posts_by_series() {
 		global $typenow, $wp_query;
 
-		if ( $typenow != 'post' ) {
+		if ( 'post' !== $typenow ) {
 			return;
 		}
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$current_series    = isset( $_REQUEST['post_series'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['post_series'] ) ) : '';
 		$post_series_terms = get_terms(
-			'post_series',
 			array(
+				'taxonomy'   => 'post_series',
 				'hide_empty' => true,
 				'orderby'    => 'name',
 			)

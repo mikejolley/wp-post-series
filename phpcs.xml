@@ -2,24 +2,31 @@
 <ruleset name="WordPress Coding Standards">
 	<description>PHP_CodeSniffer ruleset.</description>
 
+	<file>.</file>
+	<arg name="extensions" value="php" />
+
 	<!-- Exclude paths -->
+	<exclude-pattern>*/build/*</exclude-pattern>
+	<exclude-pattern>*/.context/*</exclude-pattern>
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
 	<exclude-pattern>*/vendor/*</exclude-pattern>
 
 	<!-- Configs -->
-	<config name="minimum_supported_wp_version" value="5.2" />
-	<config name="testVersion" value="5.6-" />
+	<config name="minimum_supported_wp_version" value="6.6" />
+	<config name="testVersion" value="7.4-" />
 
 	<!-- Rules -->
 	<rule ref="WordPress" />
 
 	<rule ref="WordPress.WP.I18n">
 		<properties>
-			<property name="text_domain" type="array" value="wp-post-series" />
+			<property name="text_domain" type="array">
+				<element value="wp-post-series" />
+			</property>
 		</properties>
 	</rule>
 
-	<rule ref="PHPCompatibility">
+	<rule ref="PHPCompatibilityWP">
 		<exclude-pattern>tests/</exclude-pattern>
 	</rule>
 

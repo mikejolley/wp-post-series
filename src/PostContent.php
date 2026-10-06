@@ -92,7 +92,7 @@ class PostContent {
 	public function render_post_series( $post_id, $series, $class_name = '', $show_description = true, $show_posts = false ) {
 		wp_enqueue_script( 'wp-post-series' );
 
-		$term_description      = term_description( $series->term_id, 'post_series' );
+		$term_description = term_description( $series->term_id );
 		// Query full post objects (not IDs) so they are cached for the title/permalink/status lookups below.
 		$posts_in_series       = array_values(
 			array_map(
@@ -107,7 +107,7 @@ class PostContent {
 							'orderby'                => 'date',
 							'order'                  => 'asc',
 							'post_status'            => array( 'publish', 'future' ),
-							'tax_query'              => array(
+							'tax_query'              => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- Querying by series is the point of the plugin.
 								array(
 									'taxonomy' => 'post_series',
 									'field'    => 'slug',
