@@ -2,10 +2,10 @@
 Contributors: mikejolley
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=mike.jolley@me.com&currency_code=&amount=&return=&item_name=Buy+me+a+coffee+for+WP+Post+Series
 Tags: series, post series, organize, course, book
-Requires at least: 5.4
-Tested up to: 5.6
-Requires PHP: 5.6
-Stable tag: 2.0.0
+Requires at least: 6.6
+Tested up to: 7.1
+Requires PHP: 7.4
+Stable tag: 2.1.0
 
 Publish and link together a series of posts using a new "series" taxonomy. Automatically display links to other posts in a series above your content.
 
@@ -55,6 +55,16 @@ The manual installation method involves downloading the plugin and uploading it 
 2. Post Series Block Settings
 
 == Changelog ==
+
+= 2.1.0 =
+* Fix - Post Series block crashing in the editor on current WordPress versions, and when used on pages or in the site and widget editors.
+* Fix - Series box no longer appears in automatically generated excerpts.
+* Fix - PHP warning in the classic editor meta box for posts without a series. Props [@pixeline](https://github.com/pixeline).
+* Fix - Series column now shows in the posts list even when the Categories column is removed.
+* Performance - Series lists no longer run a database query per post.
+* Dev - Block updated to API version 3 and registered with block.json, so it runs in the iframed editor.
+* Dev - Build tooling moved to @wordpress/scripts.
+* Dev - Requires WordPress 6.6 and PHP 7.4.
 
 = 2.0.0 =
 * Refactor - Improved template markup and default styling. If you have customized the series-box.php file, be sure to update it based on the new version to take advantage of the new functionality.

@@ -5,7 +5,7 @@
 	"description": "Lets you setup a simple series of posts using taxonomies. Posts within a series will show an information box above the content automatically with links to other posts in the series and a description.",
 	"author": "Mike Jolley",
 	"license": "GPL-3.0-or-later",
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/mikejolley/wp-post-series.git"
