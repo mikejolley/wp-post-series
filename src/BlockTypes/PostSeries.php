@@ -17,20 +17,6 @@ use MJ\PostSeries\PostContent;
 class PostSeries {
 
 	/**
-	 * Block namespace.
-	 *
-	 * @var string
-	 */
-	protected $namespace = 'mj';
-
-	/**
-	 * Block namespace.
-	 *
-	 * @var string
-	 */
-	protected $block_name = 'wp-post-series';
-
-	/**
 	 * Holds the Content Controller class.
 	 *
 	 * @var PostContent
@@ -38,52 +24,31 @@ class PostSeries {
 	private $content;
 
 	/**
+	 * Path to the directory containing the built block.json.
+	 *
+	 * @var string
+	 */
+	private $block_dir;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param PostContent $content PostContent controller class instance.
+	 * @param string      $block_dir Path to the directory containing the built block.json.
 	 */
-	public function __construct( PostContent $content ) {
-		$this->content = $content;
+	public function __construct( PostContent $content, $block_dir ) {
+		$this->content   = $content;
+		$this->block_dir = $block_dir;
 	}
 
 	/**
-	 * Gets the editor script handle.
-	 *
-	 * @return string
-	 */
-	public function get_script_handle() {
-		return $this->block_name . '-block';
-	}
-
-	/**
-	 * Registers the block type with WordPress.
+	 * Registers the block type with WordPress from block.json.
 	 */
 	public function register_block_type() {
 		register_block_type(
-			$this->namespace . '/' . $this->block_name,
+			$this->block_dir,
 			array(
-				'editor_script'   => $this->get_script_handle(),
-				'script'          => 'wp-post-series',
-				'style'           => 'wp-post-series',
 				'render_callback' => array( $this, 'render' ),
-				'attributes'      => array(
-					'series'          => array(
-						'type' => 'string',
-					),
-					'showDescription' => array(
-						'type' => 'boolean',
-					),
-					'showPosts'       => array(
-						'type' => 'boolean',
-					),
-					'className'       => array(
-						'type' => 'string',
-					),
-					'previewId'       => array(
-						'type' => 'number',
-					),
-				),
-				'supports'        => [],
 			)
 		);
 	}
@@ -95,7 +60,7 @@ class PostSeries {
 	 * @param string          $content    Block content. Default empty string.
 	 * @return string Rendered block type output.
 	 */
-	public function render( $attributes = [], $content = '' ) {
+	public function render( $attributes = array(), $content = '' ) {
 		$attributes = wp_parse_args(
 			$attributes,
 			array(
@@ -117,6 +82,10 @@ class PostSeries {
 
 		if ( ! $series || is_wp_error( $series ) ) {
 			return $content;
+		}
+
+		if ( $post_id ) {
+			$this->content->mark_block_rendered( $post_id );
 		}
 
 		return $this->content->render_post_series( $post_id, $series, $attributes['className'], $attributes['showDescription'], $attributes['showPosts'] );

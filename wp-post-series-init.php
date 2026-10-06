@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  * Require Autoloader, and ensure build is complete. Otherwise abort.
  */
 $autoloader = __DIR__ . '/vendor/autoload.php';
-$build      = __DIR__ . '/build/frontend.js';
+$build      = __DIR__ . '/build/post-series-block/block.json';
 if ( is_readable( $autoloader ) && is_readable( $build ) ) {
 	require $autoloader;
 } else {
@@ -24,7 +24,7 @@ if ( is_readable( $autoloader ) && is_readable( $build ) ) {
 			sprintf(
 				/* translators: 1: composer command. 2: plugin directory */
 				esc_html__( 'Your installation of WP Post Series is incomplete. Please run %1$s within the %2$s directory, or download the built plugin files from wordpress.org.', 'wp-post-series' ),
-				'`composer install && && npm install && npm run build`',
+				'`composer install && npm install && npm run build`',
 				'`' . esc_html( str_replace( ABSPATH, '', __DIR__ ) ) . '`'
 			)
 		);
@@ -34,7 +34,7 @@ if ( is_readable( $autoloader ) && is_readable( $build ) ) {
 	 */
 	add_action(
 		'admin_notices',
-		function() {
+		function () {
 			?>
 			<div class="notice notice-error">
 				<p>
@@ -42,7 +42,7 @@ if ( is_readable( $autoloader ) && is_readable( $build ) ) {
 					printf(
 						/* translators: 1: composer command. 2: plugin directory */
 						esc_html__( 'Your installation of WP Post Series is incomplete. Please run %1$s within the %2$s directory, or download the built plugin files from wordpress.org.', 'wp-post-series' ),
-						'<code>composer install && && npm install && npm run build</code>',
+						'<code>composer install && npm install && npm run build</code>',
 						'<code>' . esc_html( str_replace( ABSPATH, '', __DIR__ ) ) . '</code>'
 					);
 					?>
@@ -73,6 +73,20 @@ function get_post_series( $post_id ) {
 }
 
 /**
+ * Get the post types that can be added to a series.
+ *
+ * @return string[] Post type names.
+ */
+function get_series_post_types() {
+	/**
+	 * Filters the post types that can be added to a series.
+	 *
+	 * @param string[] $post_types Post type names. Default posts only.
+	 */
+	return (array) apply_filters( 'wp_post_series_post_types', array( 'post' ) );
+}
+
+/**
  * Fetch instance of plugin.
  */
 function init() {
@@ -82,7 +96,7 @@ function init() {
 		$container = new \MJ\PostSeries\Registry\Container();
 		$container->register(
 			\MJ\PostSeries\Plugin::class,
-			function( \MJ\PostSeries\Registry\Container $container ) {
+			function ( \MJ\PostSeries\Registry\Container $container ) {
 				return new \MJ\PostSeries\Plugin( $container, __FILE__ );
 			}
 		);

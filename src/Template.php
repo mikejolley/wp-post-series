@@ -42,8 +42,9 @@ class Template {
 	 */
 	public function get_template( $template_name, $args = array(), $template_path = '', $default_path = '' ) {
 		if ( $args && is_array( $args ) ) {
+			// Skip keys that would overwrite this method's own variables, e.g. $template_name.
 			// phpcs:ignore WordPress.PHP.DontExtract.extract_extract
-			extract( $args );
+			extract( $args, EXTR_SKIP );
 		}
 		include $this->locate_template( $template_name, $template_path, $default_path );
 	}

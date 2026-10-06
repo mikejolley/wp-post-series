@@ -22,7 +22,7 @@ class Container {
 	 *
 	 * @var AbstractDependencyType[]
 	 */
-	private $registry = [];
+	private $registry = array();
 
 	/**
 	 * Public api for adding a factory to the container.
@@ -88,11 +88,11 @@ class Container {
 	 */
 	public function get( $id ) {
 		if ( ! isset( $this->registry[ $id ] ) ) {
-			// this is a developer facing exception, hence it is not localized.
+			// this is a developer facing exception, hence it is not localized or escaped.
 			throw new Exception(
 				sprintf(
 					'Cannot construct an instance of %s because it has not been registered.',
-					$id
+					$id // phpcs:ignore WordPress.Security.EscapeOutput.ExceptionNotEscaped
 				)
 			);
 		}

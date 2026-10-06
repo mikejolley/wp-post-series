@@ -1,88 +1,267 @@
-# Copyright (C) 2015 WP Post Series
-# This file is distributed under the same license as the WP Post Series package.
+# Copyright (C) 2026 Mike Jolley
+# This file is distributed under the same license as the WP Post Series plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Post Series 1.0.2\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-post-series\n"
-"POT-Creation-Date: 2015-11-26 16:25:03+00:00\n"
+"Project-Id-Version: WP Post Series 2.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-post-series\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2026-10-06T21:00:31+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: wp-post-series\n"
 
-#: templates/series-box.php:9
-msgid "This is post #%d of %d in the series <em>&ldquo;%s&rdquo;</em>"
-msgstr ""
-
-#: wp-post-series.php:57 wp-post-series.php:58
-msgid "Post series"
-msgstr ""
-
-#: wp-post-series.php:66 wp-post-series.php:160
-msgid "Series"
-msgstr ""
-
-#: wp-post-series.php:69
-msgid "Search %s"
-msgstr ""
-
-#: wp-post-series.php:70
-msgid "All %s"
-msgstr ""
-
-#: wp-post-series.php:71
-msgid "%s"
-msgstr ""
-
-#: wp-post-series.php:72
-msgid "%s:"
-msgstr ""
-
-#: wp-post-series.php:73
-msgid "Edit %s"
-msgstr ""
-
-#: wp-post-series.php:74
-msgid "Update %s"
-msgstr ""
-
-#: wp-post-series.php:75
-msgid "Add New %s"
-msgstr ""
-
-#: wp-post-series.php:76
-msgid "New %s Name"
-msgstr ""
-
-#: wp-post-series.php:180
-msgid "N/A"
-msgstr ""
-
-#: wp-post-series.php:203
-msgid "Show all series"
-msgstr ""
-
-#. Plugin Name of the plugin/theme
+#. Plugin Name of the plugin
+#: wp-post-series.php
 msgid "WP Post Series"
 msgstr ""
 
-#. Plugin URI of the plugin/theme
-msgid "https://github.com/mikejolley/wp-post-series"
+#. Plugin URI of the plugin
+#: wp-post-series.php
+msgid "https://wordpress.org/plugins/wp-post-series/"
 msgstr ""
 
-#. Description of the plugin/theme
-msgid ""
-"Lets you setup a simple series of posts using taxonomies. Posts within a "
-"series will show an information box above the content automatically with "
-"links to other posts in the series and a description."
+#. Description of the plugin
+#: wp-post-series.php
+msgid "Publish and link together a series of posts using a new \"series\" taxonomy. Automatically display links to other posts in a series above your content."
 msgstr ""
 
-#. Author of the plugin/theme
+#. Author of the plugin
+#: wp-post-series.php
 msgid "Mike Jolley"
 msgstr ""
 
-#. Author URI of the plugin/theme
+#. Author URI of the plugin
+#: wp-post-series.php
 msgid "http://mikejolley.com"
+msgstr ""
+
+#. translators: %s series name/link
+#: src/PostContent.php:228
+#, php-format
+msgid "Series: <em>%s</em>"
+msgstr ""
+
+#. translators: %1$d Post index, %2$d number of posts in series, %3$s series name/link
+#: src/PostContent.php:235
+#, php-format
+msgid "This is post %1$d of %2$d in the series <em>&ldquo;%3$s&rdquo;</em>"
+msgstr ""
+
+#: src/PostContent.php:265
+msgid "(no title)"
+msgstr ""
+
+#. translators: %s scheduled post date
+#: src/PostContent.php:271
+#, php-format
+msgid "Scheduled for %s"
+msgstr ""
+
+#: src/TaxonomyController.php:44
+#: src/TaxonomyController.php:45
+#: src/TaxonomyController.php:54
+#: src/TaxonomyController.php:156
+#: src/TaxonomyController.php:162
+msgid "Series"
+msgstr ""
+
+#. Translators: %s taxonomy name
+#: src/TaxonomyController.php:58
+#, php-format
+msgid "Search %s"
+msgstr ""
+
+#. Translators: %s taxonomy name
+#: src/TaxonomyController.php:60
+#, php-format
+msgid "All %s"
+msgstr ""
+
+#. Translators: %s taxonomy name
+#: src/TaxonomyController.php:63
+#, php-format
+msgid "%s:"
+msgstr ""
+
+#. Translators: %s taxonomy name
+#: src/TaxonomyController.php:65
+#, php-format
+msgid "Edit %s"
+msgstr ""
+
+#. Translators: %s taxonomy name
+#: src/TaxonomyController.php:67
+#, php-format
+msgid "Update %s"
+msgstr ""
+
+#. Translators: %s taxonomy name
+#: src/TaxonomyController.php:69
+#, php-format
+msgid "Add New %s"
+msgstr ""
+
+#. Translators: %s taxonomy name
+#: src/TaxonomyController.php:71
+#, php-format
+msgid "New %s Name"
+msgstr ""
+
+#: src/TaxonomyController.php:73
+msgid "View Series"
+msgstr ""
+
+#: src/TaxonomyController.php:74
+msgid "Popular series"
+msgstr ""
+
+#: src/TaxonomyController.php:75
+msgid "Separate series with commas"
+msgstr ""
+
+#: src/TaxonomyController.php:76
+msgid "Add or remove series"
+msgstr ""
+
+#: src/TaxonomyController.php:77
+msgid "Choose from the most used series"
+msgstr ""
+
+#: src/TaxonomyController.php:78
+msgid "No series found."
+msgstr ""
+
+#: src/TaxonomyController.php:79
+msgid "No series"
+msgstr ""
+
+#: src/TaxonomyController.php:80
+msgid "Series list navigation"
+msgstr ""
+
+#: src/TaxonomyController.php:81
+msgid "Series list"
+msgstr ""
+
+#: src/TaxonomyController.php:82
+msgid "&larr; Go to Series"
+msgstr ""
+
+#: src/TaxonomyController.php:83
+msgid "Series Link"
+msgstr ""
+
+#: src/TaxonomyController.php:84
+msgid "A link to a series."
+msgstr ""
+
+#: src/TaxonomyController.php:188
+msgid "N/A"
+msgstr ""
+
+#: src/TaxonomyController.php:220
+msgid "Show all series"
+msgstr ""
+
+#: templates/series-box.php:30
+msgid "Show all posts in this series"
+msgstr ""
+
+#. translators: 1: composer command. 2: plugin directory
+#: wp-post-series-init.php:26
+#: wp-post-series-init.php:44
+#, php-format
+msgid "Your installation of WP Post Series is incomplete. Please run %1$s within the %2$s directory, or download the built plugin files from wordpress.org."
+msgstr ""
+
+#: build/post-series-block/index.js:1
+msgid "Post Series List"
+msgstr ""
+
+#: build/post-series-block/index.js:1
+msgid "This block shows a list of posts within the selected series."
+msgstr ""
+
+#: build/post-series-block/index.js:1
+msgid "This block shows the posts in a series. Choose a series in the block settings, or it will show the series of the post being viewed."
+msgstr ""
+
+#: build/post-series-block/index.js:1
+msgid "Content"
+msgstr ""
+
+#: build/post-series-block/index.js:1
+msgid "Show series"
+msgstr ""
+
+#: build/post-series-block/index.js:1
+msgid "Current Post Series"
+msgstr ""
+
+#: build/post-series-block/index.js:1
+msgid "Show series description"
+msgstr ""
+
+#: build/post-series-block/index.js:1
+msgid "Series description is visible."
+msgstr ""
+
+#: build/post-series-block/index.js:1
+msgid "Series description is hidden."
+msgstr ""
+
+#: build/post-series-block/index.js:1
+msgid "Always show post list"
+msgstr ""
+
+#: build/post-series-block/index.js:1
+msgid "Series posts are always visible."
+msgstr ""
+
+#: build/post-series-block/index.js:1
+msgid "Series posts can be toggled."
+msgstr ""
+
+#: build/post-series-block/block.json
+msgctxt "block title"
+msgid "Post Series List"
+msgstr ""
+
+#: build/post-series-block/block.json
+msgctxt "block description"
+msgid "Show where this post sits in its series, with links to the other posts."
+msgstr ""
+
+#: build/post-series-block/block.json
+msgctxt "block keyword"
+msgid "series"
+msgstr ""
+
+#: build/post-series-block/block.json
+msgctxt "block keyword"
+msgid "post"
+msgstr ""
+
+#: build/post-series-block/block.json
+msgctxt "block keyword"
+msgid "navigation"
+msgstr ""
+
+#: build/post-series-block/block.json
+msgctxt "block keyword"
+msgid "posts in series"
+msgstr ""
+
+#: build/post-series-block/block.json
+msgctxt "block keyword"
+msgid "table of contents"
+msgstr ""
+
+#: build/post-series-block/block.json
+msgctxt "block keyword"
+msgid "series box"
 msgstr ""

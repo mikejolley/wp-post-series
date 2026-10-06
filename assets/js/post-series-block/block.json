@@ -1,0 +1,43 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "mj/wp-post-series",
+	"title": "Post Series List",
+	"category": "widgets",
+	"description": "Show where this post sits in its series, with links to the other posts.",
+	"keywords": [
+		"series",
+		"post",
+		"navigation",
+		"posts in series",
+		"table of contents",
+		"series box"
+	],
+	"textdomain": "wp-post-series",
+	"attributes": {
+		"series": {
+			"type": "string",
+			"default": ""
+		},
+		"showDescription": {
+			"type": "boolean",
+			"default": true
+		},
+		"showPosts": {
+			"type": "boolean",
+			"default": false
+		},
+		"previewId": {
+			"type": "number"
+		}
+	},
+	"supports": {
+		"html": false
+	},
+	"example": {
+		"attributes": {}
+	},
+	"editorScript": "file:./index.js",
+	"viewScript": "wp-post-series",
+	"style": "wp-post-series"
+}

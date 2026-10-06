@@ -7,7 +7,7 @@ import { useState, useEffect } from '@wordpress/element';
 /**
  * HOC that loads post series terms from the API.
  *
- * @param {Function} OriginalComponent Component being wrapped.
+ * @param {import('react').ComponentType} OriginalComponent Component being wrapped.
  */
 const withPostSeriesTerms = ( OriginalComponent ) => {
 	return ( props ) => {
@@ -19,7 +19,7 @@ const withPostSeriesTerms = ( OriginalComponent ) => {
 				.then( ( terms ) => {
 					setTermsList( terms );
 				} )
-				.catch( async () => {
+				.catch( () => {
 					setTermsList( [] );
 				} )
 				.finally( () => {

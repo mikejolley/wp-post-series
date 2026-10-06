@@ -23,6 +23,13 @@ class PostContent {
 	private $template;
 
 	/**
+	 * IDs of posts the Post Series List block has already rendered a box for during this request.
+	 *
+	 * @var array<int, true>
+	 */
+	private $block_rendered_post_ids = array();
+
+	/**
 	 * Constructor.
 	 *
 	 * @param Template $template Template controller class instance.
@@ -36,7 +43,9 @@ class PostContent {
 	 * Initialize class features.
 	 */
 	private function init() {
-		add_filter( 'the_content', array( $this, 'filter_the_content' ) );
+		// After wpautop (10) and shortcodes (11). At 10, the series box ran through wpautop whenever core had
+		// re-added it after rendering a block post earlier on the page (e.g. archives mixing block and classic posts).
+		add_filter( 'the_content', array( $this, 'filter_the_content' ), 12 );
 	}
 
 	/**
@@ -48,19 +57,32 @@ class PostContent {
 	public function filter_the_content( $content ) {
 		global $post;
 
-		if ( ! is_main_query() || empty( $post ) || 'post' !== $post->post_type ) {
+		if ( ! is_main_query() || empty( $post ) || ! in_array( $post->post_type, get_series_post_types(), true ) ) {
 			return $content;
 		}
 
-		// Disable automatic insertion if already including the series box e.g. with Gutenberg.
-		if ( strstr( $content, 'wp-post-series-box' ) ) {
+		// Auto-generated excerpts run the_content; keep the series box out of them.
+		if ( doing_filter( 'get_the_excerpt' ) ) {
 			return $content;
 		}
 
 		$post_id = absint( $post->ID );
-		$series  = get_post_series( $post_id );
 
-		if ( ! $series ) {
+		// The block already shows the series for this post, e.g. in the post content, a template part or a widget.
+		if ( isset( $this->block_rendered_post_ids[ $post_id ] ) || $this->current_template_has_block() ) {
+			return $content;
+		}
+
+		$series = get_post_series( $post_id );
+
+		/**
+		 * Filters whether to automatically add the series box to the post content.
+		 *
+		 * @param bool           $auto_insert Whether to add the series box. Default true.
+		 * @param int            $post_id     Post ID.
+		 * @param \WP_Term|false $series      The post's series, or false if it has none.
+		 */
+		if ( ! $series || ! apply_filters( 'wp_post_series_auto_insert', true, $post_id, $series ) ) {
 			return $content;
 		}
 
@@ -72,6 +94,27 @@ class PostContent {
 		}
 
 		return $series_html . $content;
+	}
+
+	/**
+	 * Record that the Post Series List block rendered a series box for a post, so it isn't added again.
+	 *
+	 * @param int $post_id Post ID.
+	 */
+	public function mark_block_rendered( $post_id ) {
+		$this->block_rendered_post_ids[ absint( $post_id ) ] = true;
+	}
+
+	/**
+	 * Whether the block template being rendered (block themes) contains the Post Series List block. The block may
+	 * render after the post content, so it can't be detected by the time the_content runs.
+	 *
+	 * @return bool
+	 */
+	protected function current_template_has_block() {
+		global $_wp_current_template_content;
+
+		return is_string( $_wp_current_template_content ) && has_block( 'mj/wp-post-series', $_wp_current_template_content );
 	}
 
 	/**
@@ -87,35 +130,40 @@ class PostContent {
 	public function render_post_series( $post_id, $series, $class_name = '', $show_description = true, $show_posts = false ) {
 		wp_enqueue_script( 'wp-post-series' );
 
-		$term_description      = term_description( $series->term_id, 'post_series' );
-		$posts_in_series       = array_values(
-			array_map(
-				'absint',
-				get_posts(
+		// Feed readers don't load the stylesheet, so list the posts without the toggle.
+		if ( is_feed() ) {
+			$show_posts = true;
+		}
+
+		$term_description = term_description( $series->term_id );
+
+		// Query full post objects (not IDs) so they are cached for the title/permalink/status lookups below.
+		$series_posts          = get_posts(
+			array(
+				'post_type'              => get_series_post_types(),
+				'posts_per_page'         => -1,
+				'no_found_rows'          => true,
+				'update_post_meta_cache' => false,
+				'orderby'                => 'date',
+				'order'                  => 'asc',
+				'post_status'            => array( 'publish', 'future' ),
+				'tax_query'              => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- Querying by series is the point of the plugin.
 					array(
-						'post_type'      => 'post',
-						'posts_per_page' => -1,
-						'fields'         => 'ids',
-						'no_found_rows'  => true,
-						'orderby'        => 'date',
-						'order'          => 'asc',
-						'post_status'    => array( 'publish', 'future' ),
-						'tax_query'      => array(
-							array(
-								'taxonomy' => 'post_series',
-								'field'    => 'slug',
-								'terms'    => $series->slug,
-							),
-						),
-					)
-				)
+						'taxonomy' => 'post_series',
+						'field'    => 'slug',
+						'terms'    => $series->slug,
+					),
+				),
 			)
 		);
-		$post_in_series        = array_search( $post_id, $posts_in_series, true ) + 1;
+		$posts_in_series       = wp_list_pluck( $series_posts, 'ID' );
+		$post_index            = array_search( $post_id, $posts_in_series, true );
+		$post_in_series        = false === $post_index ? 0 : $post_index + 1;
 		$post_series_box_class = trim( 'wp-post-series-box series-' . $series->slug . ' ' . $class_name );
 		$has_multiple_posts    = count( $posts_in_series ) > 1;
+		$is_expandable         = ! $show_posts && $has_multiple_posts;
 
-		if ( ! $show_posts && $has_multiple_posts ) {
+		if ( $is_expandable ) {
 			$post_series_box_class .= ' wp-post-series-box--expandable';
 		}
 
@@ -132,7 +180,8 @@ class PostContent {
 				'posts_in_series_links' => array_map( array( $this, 'post_series_post_link' ), $posts_in_series ),
 				'post_in_series'        => $post_in_series,
 				'post_series_box_class' => $post_series_box_class,
-				'has_multiple_posts'    => count( $posts_in_series ) > 1,
+				'has_multiple_posts'    => $has_multiple_posts,
+				'is_expandable'         => $is_expandable,
 				'show_posts'            => $show_posts,
 				'show_description'      => $show_description && $term_description,
 			)
@@ -151,7 +200,11 @@ class PostContent {
 		$series_name = esc_html( $term->name );
 
 		if ( apply_filters( 'wp_post_series_enable_archive', false ) ) {
-			$series_name = '<a href="' . get_term_link( $term->term_id, 'post_series' ) . '">' . $series_name . '</a>';
+			$term_link = get_term_link( (int) $term->term_id, 'post_series' );
+
+			if ( ! is_wp_error( $term_link ) ) {
+				$series_name = '<a href="' . esc_url( $term_link ) . '">' . $series_name . '</a>';
+			}
 		}
 
 		return $series_name;
@@ -199,7 +252,7 @@ class PostContent {
 		$suffix       = '';
 
 		if ( $is_published && ! $is_current ) {
-			$prefix = '<a href="' . get_permalink( $post_id ) . '">';
+			$prefix = '<a href="' . esc_url( get_permalink( $post_id ) ) . '">';
 			$suffix = '</a>';
 		} elseif ( $is_current ) {
 			$prefix = '<span class="wp-post-series-box__current">';
@@ -207,6 +260,10 @@ class PostContent {
 		}
 
 		$title = get_the_title( $post_id );
+
+		if ( '' === trim( wp_strip_all_tags( $title ) ) ) {
+			$title = __( '(no title)', 'wp-post-series' );
+		}
 
 		if ( ! $is_published ) {
 			$title .= ' <span class="wp-post-series-box__scheduled_text">';

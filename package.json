@@ -5,7 +5,7 @@
 	"description": "Lets you setup a simple series of posts using taxonomies. Posts within a series will show an information box above the content automatically with links to other posts in the series and a description.",
 	"author": "Mike Jolley",
 	"license": "GPL-3.0-or-later",
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/mikejolley/wp-post-series.git"
@@ -13,54 +13,26 @@
 	"bugs": {
 		"url": "https://github.com/mikejolley/wp-post-series/issues"
 	},
-	"babel": {
-		"presets": [
-			"@babel/preset-env"
-		]
-	},
-	"browserslist": [
-		"extends @wordpress/browserslist-config"
-	],
 	"devDependencies": {
-		"@babel/cli": "^7.11.6",
-		"@babel/core": "^7.11.6",
-		"@babel/plugin-proposal-async-generator-functions": "^7.12.1",
-		"@babel/plugin-proposal-class-properties": "^7.12.1",
-		"@babel/plugin-proposal-object-rest-spread": "^7.12.1",
-		"@babel/plugin-transform-react-jsx": "^7.12.1",
-		"@babel/plugin-transform-runtime": "^7.11.5",
-		"@babel/preset-env": "^7.11.5",
-		"@wordpress/babel-preset-default": "^4.19.0",
-		"@wordpress/browserslist-config": "^2.7.0",
-		"@wordpress/dependency-extraction-webpack-plugin": "^2.8.0",
-		"@wordpress/eslint-plugin": "^7.3.0",
-		"babel-loader": "^8.1.0",
-		"babel-minify-webpack-plugin": "^0.3.1",
-		"babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-		"browserslist": "^4.14.5",
-		"css-loader": "^4.3.0",
-		"eslint": "6.8.0",
-		"eslint-config-prettier": "6.11.0",
-		"eslint-plugin-jest": "23.19.0",
-		"eslint-plugin-react-hooks": "4.0.0",
-		"mini-css-extract-plugin": "^0.11.3",
-		"postcss": "^8.1.1",
-		"postcss-loader": "^4.0.3",
-		"prettier": "npm:wp-prettier@1.19.1",
-		"rimraf": "^3.0.2",
-		"sass": "^1.26.12",
-		"sass-loader": "^10.0.2",
-		"webpack": "^4.44.2",
-		"webpack-cli": "^3.3.12"
+		"@playwright/test": "^1.63.0",
+		"@wordpress/e2e-test-utils-playwright": "^2.1.0",
+		"@wordpress/env": "^11.16.0",
+		"@wordpress/scripts": "^36.0.0",
+		"webpack-remove-empty-scripts": "^1.1.1"
 	},
 	"scripts": {
-		"watch": "rimraf build/* && webpack --mode=development --watch --config webpack.config.js",
-		"build": "rimraf build/* && webpack --mode=production --config webpack.config.js"
+		"build": "wp-scripts build --webpack-src-dir=assets/js",
+		"start": "wp-scripts start --webpack-src-dir=assets/js",
+		"format": "wp-scripts format",
+		"lint:js": "wp-scripts lint-js assets/js",
+		"lint:css": "wp-scripts lint-style \"assets/**/*.scss\"",
+		"lint:php": "composer run-script phpcs",
+		"lint": "npm run lint:js && npm run lint:css && npm run lint:php",
+		"wp-env": "wp-env",
+		"test:php": "wp-env run cli --env-cwd=wp-content/plugins/wp-post-series env WORDPRESS_TABLE_PREFIX=wptests_ vendor/bin/phpunit",
+		"test:e2e": "wp-scripts test-playwright --config tests/e2e/playwright.config.js"
 	},
 	"dependencies": {
-		"@wordpress/blocks": "^6.23.0",
-		"@wordpress/i18n": "^3.16.0",
-		"@wordpress/icons": "^2.7.0",
-		"classnames": "^2.2.6"
+		"@wordpress/icons": "^17.0.0"
 	}
 }
