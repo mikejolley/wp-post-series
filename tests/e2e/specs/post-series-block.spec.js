@@ -86,21 +86,35 @@ test.describe( 'Post Series block', () => {
 		await expect( editor.canvas.getByText( BLOCK_ERROR ) ).toHaveCount( 0 );
 	} );
 
-	test( 'series box toggles from the keyboard on the frontend', async ( {
+	test( 'series box toggle is accessible on the frontend', async ( {
 		page,
 	} ) => {
 		await page.goto( posts[ 0 ].link );
 
 		const box = page.locator( '.wp-post-series-box' );
 		const postList = box.locator( '.wp-post-series-box__posts' );
+		const toggle = box.getByRole( 'checkbox', {
+			name: 'Show all posts in this series',
+		} );
 
 		await expect( box ).toContainText( 'This is post 1 of 2' );
 		await expect( postList ).toBeHidden();
+		// Collapsed links must not be reachable by keyboard or screen readers.
+		await expect( postList.getByRole( 'link' ) ).toHaveCount( 0 );
 
-		await box.locator( '.wp-post-series-box__label' ).focus();
-		await page.keyboard.press( 'Enter' );
-
+		// Clicking anywhere in the header toggles the list.
+		await box.locator( '.wp-post-series-box__label' ).click();
+		await expect( toggle ).toBeChecked();
 		await expect( postList ).toBeVisible();
 		await expect( postList.getByRole( 'link' ) ).toHaveText( 'E2E part 2' );
+
+		// Space (native) and Enter both toggle from the keyboard.
+		await toggle.focus();
+		await page.keyboard.press( 'Space' );
+		await expect( toggle ).not.toBeChecked();
+		await expect( postList ).toBeHidden();
+		await page.keyboard.press( 'Enter' );
+		await expect( toggle ).toBeChecked();
+		await expect( postList ).toBeVisible();
 	} );
 } );

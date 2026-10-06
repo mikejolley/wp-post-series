@@ -57,6 +57,7 @@ The manual installation method involves downloading the plugin and uploading it 
 == Changelog ==
 
 = 2.1.0 =
+* Accessibility - The series box toggle is now a labelled checkbox that screen readers and keyboards can operate, and collapsed posts are hidden from them. The header markup is valid HTML (no block elements inside a `<label>`). If you have customized series-box.php, update it based on the new version.
 * Fix - Post Series block crashing in the editor on current WordPress versions, and when used on pages or in the site and widget editors.
 * Fix - Series box no longer appears in automatically generated excerpts.
 * Fix - PHP warning in the classic editor meta box for posts without a series. Props [@pixeline](https://github.com/pixeline).

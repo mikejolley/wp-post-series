@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-06T17:22:08+00:00\n"
+"POT-Creation-Date: 2026-10-06T17:36:28+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: wp-post-series\n"
@@ -116,6 +116,10 @@ msgstr ""
 
 #: src/TaxonomyController.php:187
 msgid "Show all series"
+msgstr ""
+
+#: templates/series-box.php:31
+msgid "Show all posts in this series"
 msgstr ""
 
 #. translators: 1: composer command. 2: plugin directory
