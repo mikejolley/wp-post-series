@@ -48,7 +48,7 @@ class PostContent {
 	public function filter_the_content( $content ) {
 		global $post;
 
-		if ( ! is_main_query() || empty( $post ) || 'post' !== $post->post_type ) {
+		if ( ! is_main_query() || empty( $post ) || ! in_array( $post->post_type, get_series_post_types(), true ) ) {
 			return $content;
 		}
 
@@ -97,7 +97,7 @@ class PostContent {
 		// Query full post objects (not IDs) so they are cached for the title/permalink/status lookups below.
 		$series_posts          = get_posts(
 			array(
-				'post_type'              => 'post',
+				'post_type'              => get_series_post_types(),
 				'posts_per_page'         => -1,
 				'no_found_rows'          => true,
 				'update_post_meta_cache' => false,

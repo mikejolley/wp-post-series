@@ -31,14 +31,24 @@ class TaxonomyControllerTest extends TestCase {
 		$this->assertFalse( $taxonomy->hierarchical );
 	}
 
+	public function test_labels_do_not_fall_back_to_tag_wording() {
+		$labels = (array) get_taxonomy( 'post_series' )->labels;
+
+		foreach ( $labels as $key => $label ) {
+			$this->assertDoesNotMatchRegularExpression( '/\btags?\b/i', (string) $label, "Label {$key} mentions tags." );
+		}
+		$this->assertSame( '&larr; Go to Series', $labels['back_to_items'] );
+	}
+
 	public function test_series_column_is_added_after_categories() {
 		$columns = apply_filters(
-			'manage_edit-post_columns', // phpcs:ignore WordPress.NamingConventions.ValidHookName.UseUnderscores -- Core hook name.
+			'manage_posts_columns',
 			array(
 				'title'      => 'Title',
 				'categories' => 'Categories',
 				'date'       => 'Date',
-			)
+			),
+			'post'
 		);
 
 		$this->assertSame( array( 'title', 'categories', 'post_series', 'date' ), array_keys( $columns ) );

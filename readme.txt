@@ -49,6 +49,17 @@ The manual installation method involves downloading the plugin and uploading it 
 * Using an FTP program, or your hosting control panel, upload the unzipped plugin folder to your WordPress `wp-content/plugins/` directory.
 * Activate the plugin from the Plugins menu within the WordPress admin.
 
+== Frequently Asked Questions ==
+
+= Can I use series with pages or custom post types? =
+
+Yes. Series are available on posts by default. Add other post types with the `wp_post_series_post_types` filter, for example in your theme's functions.php:
+
+`add_filter( 'wp_post_series_post_types', function ( $post_types ) {
+	$post_types[] = 'book';
+	return $post_types;
+} );`
+
 == Screenshots ==
 
 1. Post Series Display 
@@ -62,6 +73,8 @@ The manual installation method involves downloading the plugin and uploading it 
 * Fix - Series box no longer appears in automatically generated excerpts.
 * Fix - PHP warning in the classic editor meta box for posts without a series. Props [@pixeline](https://github.com/pixeline).
 * Fix - Series column now shows in the posts list even when the Categories column is removed.
+* Fix - Series admin screens no longer use "Tags" wording, such as "Go to Tags" after editing a series. (#30)
+* Feature - Series can be used with other post types via the `wp_post_series_post_types` filter. (#33)
 * Performance - Series lists no longer run a database query per post.
 * Fix - Fatal error when the series archive link can't be generated.
 * Fix - `$post_in_series` template variable is now `0` when the post isn't in the displayed series (was `1`).

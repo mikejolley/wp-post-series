@@ -73,6 +73,20 @@ function get_post_series( $post_id ) {
 }
 
 /**
+ * Get the post types that can be added to a series.
+ *
+ * @return string[] Post type names.
+ */
+function get_series_post_types() {
+	/**
+	 * Filters the post types that can be added to a series.
+	 *
+	 * @param string[] $post_types Post type names. Default posts only.
+	 */
+	return (array) apply_filters( 'wp_post_series_post_types', array( 'post' ) );
+}
+
+/**
  * Fetch instance of plugin.
  */
 function init() {

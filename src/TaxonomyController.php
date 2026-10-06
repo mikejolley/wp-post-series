@@ -25,8 +25,15 @@ class TaxonomyController {
 	 */
 	private function init() {
 		add_action( 'init', array( $this, 'register_taxonomies' ) );
-		add_filter( 'manage_edit-post_columns', array( $this, 'add_post_series_column' ) );
-		add_action( 'manage_post_posts_custom_column', array( $this, 'post_series_column_content' ), 2 );
+		add_filter( 'manage_posts_columns', array( $this, 'add_post_series_column' ), 10, 2 );
+		add_filter(
+			'manage_pages_columns',
+			function ( $columns ) {
+				return $this->add_post_series_column( $columns, 'page' );
+			}
+		);
+		add_action( 'manage_posts_custom_column', array( $this, 'post_series_column_content' ), 2, 2 );
+		add_action( 'manage_pages_custom_column', array( $this, 'post_series_column_content' ), 2, 2 );
 		add_action( 'restrict_manage_posts', array( $this, 'filter_posts_by_series' ) );
 	}
 
@@ -39,29 +46,42 @@ class TaxonomyController {
 
 		register_taxonomy(
 			'post_series',
-			array( 'post' ),
+			get_series_post_types(),
 			array(
 				'hierarchical' => false,
 				'label'        => $plural,
 				'labels'       => array(
-					'menu_name'         => __( 'Series', 'wp-post-series' ),
-					'name'              => $plural,
-					'singular_name'     => $singular,
+					'menu_name'                  => __( 'Series', 'wp-post-series' ),
+					'name'                       => $plural,
+					'singular_name'              => $singular,
 					/* Translators: %s taxonomy name */
-					'search_items'      => sprintf( __( 'Search %s', 'wp-post-series' ), $plural ),
+					'search_items'               => sprintf( __( 'Search %s', 'wp-post-series' ), $plural ),
 					/* Translators: %s taxonomy name */
-					'all_items'         => sprintf( __( 'All %s', 'wp-post-series' ), $plural ),
-					'parent_item'       => $singular,
+					'all_items'                  => sprintf( __( 'All %s', 'wp-post-series' ), $plural ),
+					'parent_item'                => $singular,
 					/* Translators: %s taxonomy name */
-					'parent_item_colon' => sprintf( __( '%s:', 'wp-post-series' ), $singular ),
+					'parent_item_colon'          => sprintf( __( '%s:', 'wp-post-series' ), $singular ),
 					/* Translators: %s taxonomy name */
-					'edit_item'         => sprintf( __( 'Edit %s', 'wp-post-series' ), $singular ),
+					'edit_item'                  => sprintf( __( 'Edit %s', 'wp-post-series' ), $singular ),
 					/* Translators: %s taxonomy name */
-					'update_item'       => sprintf( __( 'Update %s', 'wp-post-series' ), $singular ),
+					'update_item'                => sprintf( __( 'Update %s', 'wp-post-series' ), $singular ),
 					/* Translators: %s taxonomy name */
-					'add_new_item'      => sprintf( __( 'Add New %s', 'wp-post-series' ), $singular ),
+					'add_new_item'               => sprintf( __( 'Add New %s', 'wp-post-series' ), $singular ),
 					/* Translators: %s taxonomy name */
-					'new_item_name'     => sprintf( __( 'New %s Name', 'wp-post-series' ), $singular ),
+					'new_item_name'              => sprintf( __( 'New %s Name', 'wp-post-series' ), $singular ),
+					// Non-hierarchical taxonomies otherwise fall back to "Tags" wording.
+					'view_item'                  => __( 'View Series', 'wp-post-series' ),
+					'popular_items'              => __( 'Popular series', 'wp-post-series' ),
+					'separate_items_with_commas' => __( 'Separate series with commas', 'wp-post-series' ),
+					'add_or_remove_items'        => __( 'Add or remove series', 'wp-post-series' ),
+					'choose_from_most_used'      => __( 'Choose from the most used series', 'wp-post-series' ),
+					'not_found'                  => __( 'No series found.', 'wp-post-series' ),
+					'no_terms'                   => __( 'No series', 'wp-post-series' ),
+					'items_list_navigation'      => __( 'Series list navigation', 'wp-post-series' ),
+					'items_list'                 => __( 'Series list', 'wp-post-series' ),
+					'back_to_items'              => __( '&larr; Go to Series', 'wp-post-series' ),
+					'item_link'                  => __( 'Series Link', 'wp-post-series' ),
+					'item_link_description'      => __( 'A link to a series.', 'wp-post-series' ),
 				),
 				'show_ui'      => true,
 				'show_in_rest' => true,
@@ -114,12 +134,17 @@ class TaxonomyController {
 	/**
 	 * Add admin column headers.
 	 *
-	 * @param  array $columns existing columns.
+	 * @param  array  $columns existing columns.
+	 * @param  string $post_type Post type of the list table.
 	 * @return array new columns.
 	 */
-	public function add_post_series_column( $columns ) {
+	public function add_post_series_column( $columns, $post_type = 'post' ) {
 		if ( ! is_array( $columns ) ) {
 			$columns = array();
+		}
+
+		if ( ! in_array( $post_type, get_series_post_types(), true ) ) {
+			return $columns;
 		}
 
 		$new_columns = array();
@@ -144,15 +169,21 @@ class TaxonomyController {
 	 * Output admin column value.
 	 *
 	 * @param string $column key for the column.
+	 * @param int    $post_id Post ID. Defaults to the global post.
 	 */
-	public function post_series_column_content( $column ) {
-		global $post;
-
+	public function post_series_column_content( $column, $post_id = 0 ) {
 		if ( 'post_series' === $column ) {
+			$post           = get_post( $post_id ? $post_id : null );
 			$current_series = get_post_series( $post->ID );
 
 			if ( $current_series ) {
-				echo '<a href="' . esc_url( admin_url( 'edit.php?post_series=' . $current_series->slug ) ) . '">' . esc_html( $current_series->name ) . '</a>';
+				$query_args = array( 'post_series' => $current_series->slug );
+
+				if ( 'post' !== $post->post_type ) {
+					$query_args['post_type'] = $post->post_type;
+				}
+
+				echo '<a href="' . esc_url( add_query_arg( $query_args, admin_url( 'edit.php' ) ) ) . '">' . esc_html( $current_series->name ) . '</a>';
 			} else {
 				esc_html_e( 'N/A', 'wp-post-series' );
 			}
@@ -161,11 +192,13 @@ class TaxonomyController {
 
 	/**
 	 * Filter posts by a particular series
+	 *
+	 * @param string $post_type Post type of the list table. Defaults to the current screen's.
 	 */
-	public function filter_posts_by_series() {
-		global $typenow, $wp_query;
+	public function filter_posts_by_series( $post_type = '' ) {
+		global $typenow;
 
-		if ( 'post' !== $typenow ) {
+		if ( ! in_array( $post_type ? $post_type : $typenow, get_series_post_types(), true ) ) {
 			return;
 		}
 
