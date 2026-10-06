@@ -120,7 +120,8 @@ class PostContent {
 				)
 			)
 		);
-		$post_in_series        = array_search( $post_id, $posts_in_series, true ) + 1;
+		$post_index            = array_search( $post_id, $posts_in_series, true );
+		$post_in_series        = false === $post_index ? 0 : $post_index + 1;
 		$post_series_box_class = trim( 'wp-post-series-box series-' . $series->slug . ' ' . $class_name );
 		$has_multiple_posts    = count( $posts_in_series ) > 1;
 
@@ -160,7 +161,11 @@ class PostContent {
 		$series_name = esc_html( $term->name );
 
 		if ( apply_filters( 'wp_post_series_enable_archive', false ) ) {
-			$series_name = '<a href="' . get_term_link( $term->term_id, 'post_series' ) . '">' . $series_name . '</a>';
+			$term_link = get_term_link( (int) $term->term_id, 'post_series' );
+
+			if ( ! is_wp_error( $term_link ) ) {
+				$series_name = '<a href="' . esc_url( $term_link ) . '">' . $series_name . '</a>';
+			}
 		}
 
 		return $series_name;
@@ -208,7 +213,7 @@ class PostContent {
 		$suffix       = '';
 
 		if ( $is_published && ! $is_current ) {
-			$prefix = '<a href="' . get_permalink( $post_id ) . '">';
+			$prefix = '<a href="' . esc_url( get_permalink( $post_id ) ) . '">';
 			$suffix = '</a>';
 		} elseif ( $is_current ) {
 			$prefix = '<span class="wp-post-series-box__current">';

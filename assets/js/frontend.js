@@ -1,10 +1,8 @@
-const myLabels = document.querySelectorAll( '.wp-post-series-box__label' );
+const labels = document.querySelectorAll( '.wp-post-series-box__label' );
 
-Array.from( myLabels ).forEach( ( label ) => {
+Array.from( labels ).forEach( ( label ) => {
 	label.addEventListener( 'keydown', ( e ) => {
-		// 32 === spacebar
-		// 13 === enter
-		if ( e.which === 32 || e.which === 13 ) {
+		if ( e.key === ' ' || e.key === 'Enter' ) {
 			e.preventDefault();
 			label.click();
 		}
