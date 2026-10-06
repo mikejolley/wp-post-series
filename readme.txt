@@ -71,6 +71,7 @@ Yes. Series are available on posts by default. Add other post types with the `wp
 * Accessibility - The series box toggle is now a labelled checkbox that screen readers and keyboards can operate, and collapsed posts are hidden from them. The header markup is valid HTML (no block elements inside a `<label>`). If you have customized series-box.php, update it based on the new version.
 * Fix - Post Series block crashing in the editor on current WordPress versions, and when used on pages or in the site and widget editors.
 * Fix - Series box no longer appears in automatically generated excerpts.
+* Fix - Extra line breaks and spacing in the series box on archive pages that mix block and classic posts.
 * Fix - PHP warning in the classic editor meta box for posts without a series. Props [@pixeline](https://github.com/pixeline).
 * Fix - Series column now shows in the posts list even when the Categories column is removed.
 * Fix - Series admin screens no longer use "Tags" wording, such as "Go to Tags" after editing a series. (#30)
@@ -82,6 +83,7 @@ Yes. Series are available on posts by default. Add other post types with the `wp
 * Fix - Template arguments can no longer change which template file is loaded.
 * Dev - Block updated to API version 3 and registered with block.json, so it runs in the iframed editor.
 * Dev - The editor script handle is now `mj-wp-post-series-editor-script` (from block.json); the `wp-post-series-block` and `wp-post-series-vendors` handles were removed. Frontend handles are unchanged.
+* Dev - The automatic series box `the_content` filter now runs at priority 12 (was 10), after `wpautop` and shortcodes.
 * Dev - Build tooling moved to @wordpress/scripts.
 * Dev - Added PHPUnit and end-to-end test suites, run in CI with wp-env.
 * Dev - Requires WordPress 6.6 and PHP 7.4.

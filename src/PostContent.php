@@ -36,7 +36,9 @@ class PostContent {
 	 * Initialize class features.
 	 */
 	private function init() {
-		add_filter( 'the_content', array( $this, 'filter_the_content' ) );
+		// After wpautop (10) and shortcodes (11). At 10, the series box ran through wpautop whenever core had
+		// re-added it after rendering a block post earlier on the page (e.g. archives mixing block and classic posts).
+		add_filter( 'the_content', array( $this, 'filter_the_content' ), 12 );
 	}
 
 	/**

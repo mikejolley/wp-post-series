@@ -85,6 +85,21 @@ class PostContentTest extends TestCase {
 		$this->assertSame( 1, substr_count( $content, 'class="wp-post-series-box ' ) );
 	}
 
+	public function test_series_box_is_not_reformatted_after_a_block_post_on_the_same_page() {
+		// Rendering block content makes core re-add wpautop at priority 10, after any callback already there.
+		$block_post_id = self::factory()->post->create( array( 'post_content' => '<!-- wp:paragraph --><p>Blocks.</p><!-- /wp:paragraph -->' ) );
+		$this->go_to_post( $block_post_id );
+		apply_filters( 'the_content', get_post()->post_content );
+
+		$this->go_to_post( $this->post_ids[1] );
+		$content = apply_filters( 'the_content', get_post()->post_content );
+
+		$this->assertSame( 1, substr_count( $content, 'class="wp-post-series-box ' ) );
+		$this->assertStringNotContainsString( '<br />', $content );
+		$this->assertDoesNotMatchRegularExpression( '/<p>\s*<label/', $content );
+		$this->assertStringContainsString( '<p>Body of part 2.</p>', $content, 'The post content itself is still formatted.' );
+	}
+
 	public function test_series_box_is_not_added_to_generated_excerpts() {
 		$this->go_to_post( $this->post_ids[1] );
 
