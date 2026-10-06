@@ -93,39 +93,34 @@ class PostContent {
 		wp_enqueue_script( 'wp-post-series' );
 
 		$term_description = term_description( $series->term_id );
+
 		// Query full post objects (not IDs) so they are cached for the title/permalink/status lookups below.
-		$posts_in_series       = array_values(
-			array_map(
-				'absint',
-				wp_list_pluck(
-					get_posts(
-						array(
-							'post_type'              => 'post',
-							'posts_per_page'         => -1,
-							'no_found_rows'          => true,
-							'update_post_meta_cache' => false,
-							'orderby'                => 'date',
-							'order'                  => 'asc',
-							'post_status'            => array( 'publish', 'future' ),
-							'tax_query'              => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- Querying by series is the point of the plugin.
-								array(
-									'taxonomy' => 'post_series',
-									'field'    => 'slug',
-									'terms'    => $series->slug,
-								),
-							),
-						)
+		$series_posts          = get_posts(
+			array(
+				'post_type'              => 'post',
+				'posts_per_page'         => -1,
+				'no_found_rows'          => true,
+				'update_post_meta_cache' => false,
+				'orderby'                => 'date',
+				'order'                  => 'asc',
+				'post_status'            => array( 'publish', 'future' ),
+				'tax_query'              => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- Querying by series is the point of the plugin.
+					array(
+						'taxonomy' => 'post_series',
+						'field'    => 'slug',
+						'terms'    => $series->slug,
 					),
-					'ID'
-				)
+				),
 			)
 		);
+		$posts_in_series       = wp_list_pluck( $series_posts, 'ID' );
 		$post_index            = array_search( $post_id, $posts_in_series, true );
 		$post_in_series        = false === $post_index ? 0 : $post_index + 1;
 		$post_series_box_class = trim( 'wp-post-series-box series-' . $series->slug . ' ' . $class_name );
 		$has_multiple_posts    = count( $posts_in_series ) > 1;
+		$is_expandable         = ! $show_posts && $has_multiple_posts;
 
-		if ( ! $show_posts && $has_multiple_posts ) {
+		if ( $is_expandable ) {
 			$post_series_box_class .= ' wp-post-series-box--expandable';
 		}
 
@@ -142,7 +137,8 @@ class PostContent {
 				'posts_in_series_links' => array_map( array( $this, 'post_series_post_link' ), $posts_in_series ),
 				'post_in_series'        => $post_in_series,
 				'post_series_box_class' => $post_series_box_class,
-				'has_multiple_posts'    => count( $posts_in_series ) > 1,
+				'has_multiple_posts'    => $has_multiple_posts,
+				'is_expandable'         => $is_expandable,
 				'show_posts'            => $show_posts,
 				'show_description'      => $show_description && $term_description,
 			)

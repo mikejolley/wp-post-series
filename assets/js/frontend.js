@@ -1,18 +1,18 @@
 /*
- * Checkboxes toggle with Space natively; Enter is added as well. Focusable labels come from theme overrides of the
- * 2.0.0 template, where the label itself was the keyboard toggle.
+ * Checkboxes toggle with Space natively; Enter is added as well. Theme overrides of the 2.0.0 template made the
+ * label focusable instead; drop that so the (now focusable) checkbox is the single control.
  */
-const toggles = document.querySelectorAll(
-	'.wp-post-series-box__toggle_checkbox, .wp-post-series-box__label[tabindex]'
-);
+document
+	.querySelectorAll( '.wp-post-series-box__label[tabindex]' )
+	.forEach( ( label ) => label.removeAttribute( 'tabindex' ) );
 
-Array.from( toggles ).forEach( ( toggle ) => {
-	const isLegacyLabel = toggle.tagName === 'LABEL';
-
-	toggle.addEventListener( 'keydown', ( e ) => {
-		if ( e.key === 'Enter' || ( isLegacyLabel && e.key === ' ' ) ) {
-			e.preventDefault();
-			toggle.click();
-		}
+document
+	.querySelectorAll( '.wp-post-series-box__toggle_checkbox' )
+	.forEach( ( toggle ) => {
+		toggle.addEventListener( 'keydown', ( e ) => {
+			if ( e.key === 'Enter' ) {
+				e.preventDefault();
+				toggle.click();
+			}
+		} );
 	} );
-} );

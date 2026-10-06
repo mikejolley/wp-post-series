@@ -108,8 +108,8 @@
 			cursor: pointer;
 		}
 
-		// Keep header links (e.g. the series archive) clickable above the toggle.
-		.wp-post-series-box__name a {
+		// Keep header links (series archive, description) above the toggle.
+		.wp-post-series-box__label a {
 			position: relative;
 			z-index: 1;
 		}

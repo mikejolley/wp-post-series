@@ -10,13 +10,12 @@ test.describe( 'Post Series block', () => {
 	let posts;
 
 	test.beforeAll( async ( { requestUtils } ) => {
-		// The PHPUnit installer shares this site and leaves a non-existent theme active.
+		// The site editor test edits a Twenty Twenty-Five template.
 		await requestUtils.activateTheme( 'twentytwentyfive' );
 		await requestUtils.activatePlugin( 'wp-post-series' );
-		series = await requestUtils.rest( {
-			method: 'POST',
-			path: '/wp/v2/post_series',
-			data: { name: 'E2E Series', description: 'Series for tests.' },
+		series = await requestUtils.createRecord( 'post_series', {
+			name: 'E2E Series',
+			description: 'Series for <a href="/about/">tests</a>.',
 		} );
 		posts = [];
 		for ( const title of [ 'E2E part 1', 'E2E part 2' ] ) {
@@ -108,6 +107,12 @@ test.describe( 'Post Series block', () => {
 		await expect( postList ).toBeVisible();
 		await expect( postList.getByRole( 'link' ) ).toHaveText( 'E2E part 2' );
 
+		// Links in the header stay clickable above the toggle overlay.
+		await box
+			.locator( '.wp-post-series-box__description' )
+			.getByRole( 'link', { name: 'tests' } )
+			.click( { trial: true } );
+
 		// Space (native) and Enter both toggle from the keyboard.
 		await toggle.focus();
 		await page.keyboard.press( 'Space' );
@@ -126,14 +131,19 @@ test.describe( 'Post Series block', () => {
 		const box = page.locator( '.wp-post-series-box' );
 		const postList = box.locator( '.wp-post-series-box__posts' );
 		const legacyLabel = box.locator( 'label.wp-post-series-box__label' );
+		const toggle = box.locator( '.wp-post-series-box__toggle_checkbox' );
 
-		await expect( legacyLabel ).toHaveAttribute( 'tabindex', '0' );
+		// The label is no longer a separate tab stop; the checkbox is the control.
+		await expect( legacyLabel ).not.toHaveAttribute( 'tabindex' );
 		await expect( postList ).toBeHidden();
 
-		await legacyLabel.focus();
+		await toggle.focus();
 		await page.keyboard.press( 'Enter' );
 		await expect( postList ).toBeVisible();
 		await page.keyboard.press( 'Space' );
 		await expect( postList ).toBeHidden();
+
+		await legacyLabel.click();
+		await expect( postList ).toBeVisible();
 	} );
 } );

@@ -29,7 +29,7 @@
 	</rule>
 
 	<rule ref="PHPCompatibilityWP">
-		<exclude-pattern>tests/</exclude-pattern>
+		<exclude-pattern>tests/*</exclude-pattern>
 	</rule>
 
 	<rule ref="WordPress.Files.FileName.InvalidClassFileName">
@@ -43,7 +43,7 @@
 	</rule>
 
 	<rule ref="Generic.Commenting">
-		<exclude-pattern>tests/</exclude-pattern>
+		<exclude-pattern>tests/*</exclude-pattern>
 	</rule>
 
 	<!-- Test method names describe the behaviour; docblocks would repeat them. -->

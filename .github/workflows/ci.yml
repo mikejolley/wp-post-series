@@ -7,8 +7,8 @@ on:
 permissions:
     contents: read
 jobs:
-    lint-and-build:
-        name: Lint and build
+    lint:
+        name: Lint
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -19,7 +19,6 @@ jobs:
             - run: composer install --no-interaction
             - run: npm ci
             - run: npm run lint
-            - run: npm run build
 
     test:
         name: PHPUnit and E2E

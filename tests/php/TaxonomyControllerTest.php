@@ -44,18 +44,8 @@ class TaxonomyControllerTest extends TestCase {
 		$this->assertSame( array( 'title', 'categories', 'post_series', 'date' ), array_keys( $columns ) );
 	}
 
-	public function test_series_column_is_added_when_categories_column_is_missing() {
-		$columns = $this->controller()->add_post_series_column(
-			array(
-				'title' => 'Title',
-				'date'  => 'Date',
-			)
-		);
-
-		$this->assertArrayHasKey( 'post_series', $columns );
-	}
-
-	public function test_series_column_handles_empty_and_invalid_columns() {
+	public function test_series_column_is_added_without_a_categories_column() {
+		$this->assertSame( array( 'title', 'post_series' ), array_keys( $this->controller()->add_post_series_column( array( 'title' => 'Title' ) ) ) );
 		$this->assertSame( array( 'post_series' ), array_keys( $this->controller()->add_post_series_column( array() ) ) );
 		$this->assertSame( array( 'post_series' ), array_keys( $this->controller()->add_post_series_column( null ) ) );
 	}
@@ -64,9 +54,7 @@ class TaxonomyControllerTest extends TestCase {
 		$this->create_series();
 		$post = self::factory()->post->create_and_get();
 
-		ob_start();
-		$this->controller()->post_series_meta_box( $post );
-		$html = ob_get_clean();
+		$html = get_echo( array( $this->controller(), 'post_series_meta_box' ), array( $post ) );
 
 		$this->assertStringContainsString( 'name="tax_input[post_series]"', $html );
 		$this->assertStringContainsString( '<option value="learn-php" >Learn PHP</option>', $html );
@@ -76,9 +64,7 @@ class TaxonomyControllerTest extends TestCase {
 		$series  = $this->create_series();
 		$post_id = $this->create_series_posts( $series, 1 )[0];
 
-		ob_start();
-		$this->controller()->post_series_meta_box( get_post( $post_id ) );
-		$html = ob_get_clean();
+		$html = get_echo( array( $this->controller(), 'post_series_meta_box' ), array( get_post( $post_id ) ) );
 
 		$this->assertStringContainsString( "<option value=\"learn-php\"  selected='selected'>Learn PHP</option>", $html );
 	}
@@ -90,9 +76,7 @@ class TaxonomyControllerTest extends TestCase {
 		$post       = get_post( $this->create_series_posts( $series, 1 )[0] ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- The column callback reads the global post.
 		$no_series  = self::factory()->post->create_and_get();
 		$get_output = function () {
-			ob_start();
-			$this->controller()->post_series_column_content( 'post_series' );
-			return ob_get_clean();
+			return get_echo( array( $this->controller(), 'post_series_column_content' ), array( 'post_series' ) );
 		};
 
 		$this->assertSame( '<a href="' . esc_url( admin_url( 'edit.php?post_series=learn-php' ) ) . '">Learn PHP</a>', $get_output() );
@@ -109,9 +93,7 @@ class TaxonomyControllerTest extends TestCase {
 		$typenow                 = 'post'; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		$_REQUEST['post_series'] = 'learn-php';
 
-		ob_start();
-		$this->controller()->filter_posts_by_series();
-		$html = ob_get_clean();
+		$html = get_echo( array( $this->controller(), 'filter_posts_by_series' ) );
 
 		unset( $_REQUEST['post_series'] );
 

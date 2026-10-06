@@ -8,9 +8,8 @@
  * @package MJ/PostSeries
  */
 
-$is_expandable = ! $show_posts && $has_multiple_posts;
-$toggle_id     = uniqid( 'collapsible-series-' . $series->slug );
-$posts_id      = $toggle_id . '-posts';
+$toggle_id = uniqid( 'collapsible-series-' . $series->slug );
+$posts_id  = $toggle_id . '-posts';
 ?>
 <div class="<?php echo esc_attr( $post_series_box_class ); ?>">
 	<?php if ( $is_expandable ) : ?>

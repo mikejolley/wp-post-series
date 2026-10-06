@@ -10,7 +10,6 @@ import {
 	SelectControl,
 } from '@wordpress/components';
 import { useSelect } from '@wordpress/data';
-import { useMemo } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -33,27 +32,16 @@ const Edit = ( { attributes, setAttributes, termsList, termsLoading } ) => {
 	const blockProps = useBlockProps();
 
 	/**
-	 * Track the post series term assigned to the post (unsaved).
-	 *
-	 * The store and attribute are missing outside of the post editor (e.g. site and widget editors), and on post
-	 * types without the post_series taxonomy.
-	 *
-	 * @type {Array|undefined} editingPostSeries Array of term IDs.
+	 * First post series term assigned to the post (unsaved), or 0. The store and attribute are missing outside of
+	 * the post editor (e.g. site and widget editors), and on post types without the post_series taxonomy.
 	 */
-	const editingPostSeries = useSelect( ( select ) => {
-		const store = select( 'core/editor' );
-		return store ? store.getEditedPostAttribute( 'post_series' ) : [];
-	}, [] );
-
-	const currentPostSeriesId = useMemo( () => {
-		if (
-			! Array.isArray( editingPostSeries ) ||
-			! editingPostSeries[ 0 ]
-		) {
-			return 0;
-		}
-		return editingPostSeries[ 0 ];
-	}, [ editingPostSeries ] );
+	const currentPostSeriesId = useSelect(
+		( select ) =>
+			select( 'core/editor' )?.getEditedPostAttribute(
+				'post_series'
+			)?.[ 0 ] || 0,
+		[]
+	);
 
 	return (
 		<>

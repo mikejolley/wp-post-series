@@ -21,11 +21,7 @@ class TemplateTest extends TestCase {
 	 * @return string
 	 */
 	private function render( $template_name, $args = array() ) {
-		$template = new Template( __DIR__ . '/fixtures/' );
-
-		ob_start();
-		$template->get_template( $template_name, $args );
-		return ob_get_clean();
+		return get_echo( array( new Template( __DIR__ . '/fixtures/' ), 'get_template' ), array( $template_name, $args ) );
 	}
 
 	public function test_args_are_available_to_the_template() {
