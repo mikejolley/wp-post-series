@@ -19,7 +19,7 @@ const withPostSeriesTerms = ( OriginalComponent ) => {
 				.then( ( terms ) => {
 					setTermsList( terms );
 				} )
-				.catch( async () => {
+				.catch( () => {
 					setTermsList( [] );
 				} )
 				.finally( () => {

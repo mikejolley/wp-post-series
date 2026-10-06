@@ -34,15 +34,21 @@ const Edit = ( { attributes, setAttributes, termsList, termsLoading } ) => {
 	/**
 	 * Track the post series term assigned to the post (unsaved).
 	 *
-	 * @type {Array} editingPostSeries Array of term IDs.
+	 * The store and attribute are missing outside of the post editor (e.g. site and widget editors), and on post
+	 * types without the post_series taxonomy.
+	 *
+	 * @type {Array|undefined} editingPostSeries Array of term IDs.
 	 */
 	const editingPostSeries = useSelect( ( select ) => {
 		const store = select( 'core/editor' );
-		return store.getEditedPostAttribute( 'post_series' );
+		return store ? store.getEditedPostAttribute( 'post_series' ) : [];
 	}, [] );
 
 	const currentPostSeriesId = useMemo( () => {
-		if ( ! editingPostSeries[ 0 ] ) {
+		if (
+			! Array.isArray( editingPostSeries ) ||
+			! editingPostSeries[ 0 ]
+		) {
 			return 0;
 		}
 		return editingPostSeries[ 0 ];

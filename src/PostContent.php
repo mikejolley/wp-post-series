@@ -52,6 +52,11 @@ class PostContent {
 			return $content;
 		}
 
+		// Auto-generated excerpts run the_content; keep the series box out of them.
+		if ( doing_filter( 'get_the_excerpt' ) ) {
+			return $content;
+		}
+
 		// Disable automatic insertion if already including the series box e.g. with Gutenberg.
 		if ( strstr( $content, 'wp-post-series-box' ) ) {
 			return $content;
@@ -88,26 +93,30 @@ class PostContent {
 		wp_enqueue_script( 'wp-post-series' );
 
 		$term_description      = term_description( $series->term_id, 'post_series' );
+		// Query full post objects (not IDs) so they are cached for the title/permalink/status lookups below.
 		$posts_in_series       = array_values(
 			array_map(
 				'absint',
-				get_posts(
-					array(
-						'post_type'      => 'post',
-						'posts_per_page' => -1,
-						'fields'         => 'ids',
-						'no_found_rows'  => true,
-						'orderby'        => 'date',
-						'order'          => 'asc',
-						'post_status'    => array( 'publish', 'future' ),
-						'tax_query'      => array(
-							array(
-								'taxonomy' => 'post_series',
-								'field'    => 'slug',
-								'terms'    => $series->slug,
+				wp_list_pluck(
+					get_posts(
+						array(
+							'post_type'              => 'post',
+							'posts_per_page'         => -1,
+							'no_found_rows'          => true,
+							'update_post_meta_cache' => false,
+							'orderby'                => 'date',
+							'order'                  => 'asc',
+							'post_status'            => array( 'publish', 'future' ),
+							'tax_query'              => array(
+								array(
+									'taxonomy' => 'post_series',
+									'field'    => 'slug',
+									'terms'    => $series->slug,
+								),
 							),
-						),
-					)
+						)
+					),
+					'ID'
 				)
 			)
 		);

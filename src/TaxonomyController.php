@@ -114,8 +114,10 @@ class TaxonomyController {
 	 */
 	public function add_post_series_column( $columns ) {
 		if ( ! is_array( $columns ) ) {
-			$new_columns = array();
+			$columns = array();
 		}
+
+		$new_columns = array();
 
 		foreach ( $columns as $key => $column ) {
 			$new_columns[ $key ] = $column;
@@ -123,6 +125,11 @@ class TaxonomyController {
 			if ( 'categories' === $key ) {
 				$new_columns['post_series'] = __( 'Series', 'wp-post-series' );
 			}
+		}
+
+		// Categories column may have been removed; add ours anyway.
+		if ( ! isset( $new_columns['post_series'] ) ) {
+			$new_columns['post_series'] = __( 'Series', 'wp-post-series' );
 		}
 
 		return $new_columns;
