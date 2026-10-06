@@ -62,8 +62,12 @@ The manual installation method involves downloading the plugin and uploading it 
 * Fix - PHP warning in the classic editor meta box for posts without a series. Props [@pixeline](https://github.com/pixeline).
 * Fix - Series column now shows in the posts list even when the Categories column is removed.
 * Performance - Series lists no longer run a database query per post.
+* Fix - Fatal error when the series archive link can't be generated.
+* Fix - `$post_in_series` template variable is now `0` when the post isn't in the displayed series (was `1`).
+* Fix - Template arguments can no longer change which template file is loaded.
 * Dev - Block updated to API version 3 and registered with block.json, so it runs in the iframed editor.
 * Dev - Build tooling moved to @wordpress/scripts.
+* Dev - Added PHPUnit and end-to-end test suites, run in CI with wp-env.
 * Dev - Requires WordPress 6.6 and PHP 7.4.
 
 = 2.0.0 =

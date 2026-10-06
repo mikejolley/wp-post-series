@@ -1,0 +1,15 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/wp-env.json",
+	"core": null,
+	"phpVersion": "8.3",
+	"port": 8889,
+	"testsEnvironment": false,
+	"plugins": [],
+	"mappings": {
+		"wp-content/plugins/wp-post-series": "."
+	},
+	"config": {
+		"WP_DEBUG": true,
+		"SCRIPT_DEBUG": false
+	}
+}

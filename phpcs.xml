@@ -32,14 +32,21 @@
 
 	<rule ref="WordPress.Files.FileName.InvalidClassFileName">
 		<exclude-pattern>src/*</exclude-pattern>
+		<exclude-pattern>tests/*</exclude-pattern>
 	</rule>
 
 	<rule ref="WordPress.Files.FileName.NotHyphenatedLowercase">
 		<exclude-pattern>src/*</exclude-pattern>
+		<exclude-pattern>tests/*</exclude-pattern>
 	</rule>
 
 	<rule ref="Generic.Commenting">
 		<exclude-pattern>tests/</exclude-pattern>
+	</rule>
+
+	<!-- Test method names describe the behaviour; docblocks would repeat them. -->
+	<rule ref="Squiz.Commenting.FunctionComment.Missing">
+		<exclude-pattern>tests/*</exclude-pattern>
 	</rule>
 
 	<rule ref="Generic.Commenting.Todo">

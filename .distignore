@@ -16,3 +16,6 @@ phpcs.xml
 webpack.config.js
 .editorconfig
 .nvmrc
+.wp-env.json
+phpunit.xml.dist
+/artifacts
