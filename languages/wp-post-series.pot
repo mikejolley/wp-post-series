@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-06T19:11:33+00:00\n"
+"POT-Creation-Date: 2026-10-06T20:03:23+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: wp-post-series\n"
@@ -59,9 +59,6 @@ msgstr ""
 
 #: src/TaxonomyController.php:44
 #: src/TaxonomyController.php:45
-msgid "Post series"
-msgstr ""
-
 #: src/TaxonomyController.php:54
 #: src/TaxonomyController.php:156
 #: src/TaxonomyController.php:162
@@ -178,7 +175,7 @@ msgid "Your installation of WP Post Series is incomplete. Please run %1$s within
 msgstr ""
 
 #: build/post-series-block/index.js:1
-msgid "Post Series"
+msgid "Post Series List"
 msgstr ""
 
 #: build/post-series-block/index.js:1
@@ -186,7 +183,7 @@ msgid "This block shows a list of posts within the selected series."
 msgstr ""
 
 #: build/post-series-block/index.js:1
-msgid "This block shows a list of posts in a series. To get started, select a post series for this post in the document settings panel."
+msgid "This block shows a list of posts in a series. To get started, select a series for this post in the post settings panel."
 msgstr ""
 
 #: build/post-series-block/index.js:1
@@ -227,12 +224,12 @@ msgstr ""
 
 #: build/post-series-block/block.json
 msgctxt "block title"
-msgid "Post Series"
+msgid "Post Series List"
 msgstr ""
 
 #: build/post-series-block/block.json
 msgctxt "block description"
-msgid "Show a list of posts in the same series."
+msgid "Show where this post sits in its series, with links to the other posts."
 msgstr ""
 
 #: build/post-series-block/block.json
@@ -243,4 +240,24 @@ msgstr ""
 #: build/post-series-block/block.json
 msgctxt "block keyword"
 msgid "post"
+msgstr ""
+
+#: build/post-series-block/block.json
+msgctxt "block keyword"
+msgid "navigation"
+msgstr ""
+
+#: build/post-series-block/block.json
+msgctxt "block keyword"
+msgid "posts in series"
+msgstr ""
+
+#: build/post-series-block/block.json
+msgctxt "block keyword"
+msgid "table of contents"
+msgstr ""
+
+#: build/post-series-block/block.json
+msgctxt "block keyword"
+msgid "series box"
 msgstr ""

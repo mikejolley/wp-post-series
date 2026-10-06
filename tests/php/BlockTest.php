@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for the Post Series block.
+ * Tests for the Post Series List block.
  *
  * @package MJ/PostSeries
  */
@@ -22,6 +22,16 @@ class BlockTest extends TestCase {
 		$this->assertSame( array( 'wp-post-series' ), $block->view_script_handles );
 		$this->assertSame( array( 'wp-post-series' ), $block->style_handles );
 		$this->assertTrue( is_callable( $block->render_callback ) );
+	}
+
+	public function test_block_is_distinct_from_the_core_terms_block_for_series() {
+		$block = WP_Block_Type_Registry::get_instance()->get_registered( 'mj/wp-post-series' );
+		$terms = wp_list_filter( WP_Block_Type_Registry::get_instance()->get_registered( 'core/post-terms' )->get_variations(), array( 'name' => 'post_series' ) );
+
+		$this->assertSame( 'Post Series List', $block->title );
+		$this->assertSame( 'Series', current( $terms )['title'] );
+		$this->assertContains( 'series', $block->keywords );
+		$this->assertContains( 'navigation', $block->keywords );
 	}
 
 	public function test_renders_selected_series_on_a_page() {

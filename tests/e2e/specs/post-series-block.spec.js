@@ -5,7 +5,7 @@ const { test, expect } = require( '@wordpress/e2e-test-utils-playwright' );
 
 const BLOCK_ERROR = 'This block has encountered an error';
 
-test.describe( 'Post Series block', () => {
+test.describe( 'Post Series List block', () => {
 	let series;
 	let posts;
 

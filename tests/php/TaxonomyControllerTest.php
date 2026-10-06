@@ -31,6 +31,16 @@ class TaxonomyControllerTest extends TestCase {
 		$this->assertFalse( $taxonomy->hierarchical );
 	}
 
+	public function test_taxonomy_is_named_series_without_changing_its_key() {
+		$taxonomy = get_taxonomy( 'post_series' );
+
+		$this->assertSame( 'Series', $taxonomy->labels->name );
+		$this->assertSame( 'Series', $taxonomy->labels->singular_name );
+		$this->assertSame( 'Edit Series', $taxonomy->labels->edit_item );
+		$this->assertSame( 'post_series', $taxonomy->rest_base ? $taxonomy->rest_base : $taxonomy->name );
+		$this->assertSame( 'post_series', $taxonomy->query_var );
+	}
+
 	public function test_labels_do_not_fall_back_to_tag_wording() {
 		$labels = (array) get_taxonomy( 'post_series' )->labels;
 

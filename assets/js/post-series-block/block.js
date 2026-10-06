@@ -9,7 +9,7 @@ import { Placeholder } from '@wordpress/components';
 const EmptyPlaceholder = ( { message } ) => (
 	<Placeholder
 		icon={ <Icon icon={ postList } /> }
-		label={ __( 'Post Series', 'wp-post-series' ) }
+		label={ __( 'Post Series List', 'wp-post-series' ) }
 		className="wp-block-post-series"
 	>
 		{ message
@@ -35,7 +35,7 @@ const PostSeriesBlock = ( { attributes, currentPostSeriesId } ) => {
 		return (
 			<EmptyPlaceholder
 				message={ __(
-					'This block shows a list of posts in a series. To get started, select a post series for this post in the document settings panel.',
+					'This block shows a list of posts in a series. To get started, select a series for this post in the post settings panel.',
 					'wp-post-series'
 				) }
 			/>

@@ -13,14 +13,14 @@ Publish and link together a series of posts using a new "series" taxonomy. Autom
 
 WP Post Series is a _lightweight_ plugin for making a series of posts and showing information about the series on the post page. 
 
-Posts in a series will automatically show a series box (prepended before the post content), or you can insert them manually using the Post Series Block.
+Posts in a series will automatically show a series box (prepended before the post content), or you can insert them manually using the Post Series List block.
 
 = Features =
 
 * Add post series using the familiar WordPress UI and give each one a description.
 * Assign post series to your posts.
 * Filter posts in the backend by series.
-* Show the series above the post content or using the Post Series Block in the editor.
+* Show the series above the post content or using the Post Series List block in the editor.
 * Developer friendly code — Custom taxonomies & template files.
 
 = Contributing and reporting bugs =
@@ -75,6 +75,7 @@ Yes. Series are available on posts by default. Add other post types with the `wp
 * Fix - Series column now shows in the posts list even when the Categories column is removed.
 * Fix - Series admin screens no longer use "Tags" wording, such as "Go to Tags" after editing a series. (#30)
 * Feature - Series can be used with other post types via the `wp_post_series_post_types` filter. (#33)
+* Tweak - The block is now called "Post Series List" and the taxonomy "Series", so they're distinct from WordPress's own Terms block for series. Existing blocks and series are unaffected.
 * Performance - Series lists no longer run a database query per post.
 * Fix - Fatal error when the series archive link can't be generated.
 * Fix - `$post_in_series` template variable is now `0` when the post isn't in the displayed series (was `1`).

@@ -41,8 +41,8 @@ class TaxonomyController {
 	 * Register the taxonomies
 	 */
 	public function register_taxonomies() {
-		$plural   = __( 'Post series', 'wp-post-series' );
-		$singular = __( 'Post series', 'wp-post-series' );
+		$plural   = __( 'Series', 'wp-post-series' );
+		$singular = __( 'Series', 'wp-post-series' );
 
 		register_taxonomy(
 			'post_series',

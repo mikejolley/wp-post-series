@@ -2,10 +2,17 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "mj/wp-post-series",
-	"title": "Post Series",
+	"title": "Post Series List",
 	"category": "widgets",
-	"description": "Show a list of posts in the same series.",
-	"keywords": [ "series", "post" ],
+	"description": "Show where this post sits in its series, with links to the other posts.",
+	"keywords": [
+		"series",
+		"post",
+		"navigation",
+		"posts in series",
+		"table of contents",
+		"series box"
+	],
 	"textdomain": "wp-post-series",
 	"attributes": {
 		"series": {
