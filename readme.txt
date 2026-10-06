@@ -67,6 +67,7 @@ The manual installation method involves downloading the plugin and uploading it 
 * Fix - `$post_in_series` template variable is now `0` when the post isn't in the displayed series (was `1`).
 * Fix - Template arguments can no longer change which template file is loaded.
 * Dev - Block updated to API version 3 and registered with block.json, so it runs in the iframed editor.
+* Dev - The editor script handle is now `mj-wp-post-series-editor-script` (from block.json); the `wp-post-series-block` and `wp-post-series-vendors` handles were removed. Frontend handles are unchanged.
 * Dev - Build tooling moved to @wordpress/scripts.
 * Dev - Added PHPUnit and end-to-end test suites, run in CI with wp-env.
 * Dev - Requires WordPress 6.6 and PHP 7.4.

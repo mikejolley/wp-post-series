@@ -117,4 +117,23 @@ test.describe( 'Post Series block', () => {
 		await expect( toggle ).toBeChecked();
 		await expect( postList ).toBeVisible();
 	} );
+
+	test( 'theme overrides of the 2.0.0 template still toggle from the keyboard', async ( {
+		page,
+	} ) => {
+		await page.goto( `${ posts[ 0 ].link }?legacy-series-template` );
+
+		const box = page.locator( '.wp-post-series-box' );
+		const postList = box.locator( '.wp-post-series-box__posts' );
+		const legacyLabel = box.locator( 'label.wp-post-series-box__label' );
+
+		await expect( legacyLabel ).toHaveAttribute( 'tabindex', '0' );
+		await expect( postList ).toBeHidden();
+
+		await legacyLabel.focus();
+		await page.keyboard.press( 'Enter' );
+		await expect( postList ).toBeVisible();
+		await page.keyboard.press( 'Space' );
+		await expect( postList ).toBeHidden();
+	} );
 } );

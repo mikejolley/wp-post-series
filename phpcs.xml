@@ -8,6 +8,8 @@
 	<!-- Exclude paths -->
 	<exclude-pattern>*/build/*</exclude-pattern>
 	<exclude-pattern>*/.context/*</exclude-pattern>
+	<!-- Verbatim copy of the 2.0.0 template, for backwards compatibility tests. -->
+	<exclude-pattern>tests/php/fixtures/series-box-2.0.0.php</exclude-pattern>
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
 	<exclude-pattern>*/vendor/*</exclude-pattern>
 

@@ -6,7 +6,8 @@
 	"testsEnvironment": false,
 	"plugins": [],
 	"mappings": {
-		"wp-content/plugins/wp-post-series": "."
+		"wp-content/plugins/wp-post-series": ".",
+		"wp-content/mu-plugins": "./tests/e2e/mu-plugins"
 	},
 	"config": {
 		"WP_DEBUG": true,
