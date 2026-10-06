@@ -19,6 +19,8 @@
  * Requires PHP:      7.4
  * Text Domain:       wp-post-series
  * Domain Path:       /languages/
+ * License:           GPLv3 or later
+ * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
  */
 
 defined( 'ABSPATH' ) || exit;

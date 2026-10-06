@@ -6,6 +6,8 @@ Requires at least: 6.6
 Tested up to: 7.1
 Requires PHP: 7.4
 Stable tag: 2.1.0
+License: GPLv3 or later
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 Publish and link together a series of posts using a new "series" taxonomy. Automatically display links to other posts in a series above your content.
 
